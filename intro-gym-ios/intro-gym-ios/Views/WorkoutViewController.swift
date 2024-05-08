@@ -12,7 +12,7 @@ class WorkoutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemRed
+        view.backgroundColor = .background
     }
 
 }

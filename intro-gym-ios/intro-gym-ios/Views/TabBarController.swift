@@ -13,8 +13,8 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         
         setupTabs()
+        customizeTabBar()
         selectedIndex = 0
-        tabBar.backgroundColor = .gray.withAlphaComponent(0.2)
     }
     
     private func setupTabs() {
@@ -41,6 +41,24 @@ class TabBarController: UITabBarController {
         navigation.viewControllers.first?.navigationItem.title = title
         
         return navigation
+    }
+    
+    private func customizeTabBar() {
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        
+        appearance.backgroundColor = .backgroundBlock
+        
+        appearance.stackedLayoutAppearance.normal.iconColor = .main
+        appearance.stackedLayoutAppearance.selected.iconColor = .accent
+        
+        appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor(named: "main") ?? .gray]
+        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor(named: "accent") ?? .gray]
+        
+        tabBar.standardAppearance = appearance
+        if #available(iOS 15.0, *) {
+            tabBar.scrollEdgeAppearance = appearance
+        }
     }
     
 }
