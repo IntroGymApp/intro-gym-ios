@@ -54,7 +54,7 @@ class WorkoutViewController: UIViewController {
         view.addSubview(createdWorkoutsTableView)
         
         NSLayoutConstraint.activate([
-            createWorkoutLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            createWorkoutLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             createWorkoutLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             
             createWorkoutButton.centerYAnchor.constraint(equalTo: createWorkoutLabel.centerYAnchor),
