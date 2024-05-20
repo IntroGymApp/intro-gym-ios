@@ -39,7 +39,7 @@ class WorkoutViewController: UIViewController {
     private func createTable() {
         createdWorkoutsTableView = UITableView(frame: .zero)
         createdWorkoutsTableView.translatesAutoresizingMaskIntoConstraints = false
-        createdWorkoutsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "CreatedWorkoutCell")
+        createdWorkoutsTableView.register(CustomWorkoutCell.self, forCellReuseIdentifier: "WorkoutCell")
         createdWorkoutsTableView.dataSource = self
         createdWorkoutsTableView.delegate = self
         createdWorkoutsTableView.rowHeight = 78
@@ -54,7 +54,7 @@ class WorkoutViewController: UIViewController {
         view.addSubview(createdWorkoutsTableView)
         
         NSLayoutConstraint.activate([
-            createWorkoutLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            createWorkoutLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             createWorkoutLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             
             createWorkoutButton.centerYAnchor.constraint(equalTo: createWorkoutLabel.centerYAnchor),
@@ -89,21 +89,11 @@ extension WorkoutViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CreatedWorkoutCell", for: indexPath)
-        
-        let workoutTitle = UILabel()
-        workoutTitle.translatesAutoresizingMaskIntoConstraints = false
-        workoutTitle.text = "Тренировка 1"
-        workoutTitle.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        workoutTitle.textColor = .main
-        cell.contentView.addSubview(workoutTitle)
-        
-        let examplesCount = UILabel()
-        examplesCount.translatesAutoresizingMaskIntoConstraints = false
-        examplesCount.text = "Упражнений: 2"
-        examplesCount.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        examplesCount.textColor = .accent
-        cell.contentView.addSubview(examplesCount)
+        let cell = createdWorkoutsTableView.dequeueReusableCell(withIdentifier: "WorkoutCell", for: indexPath) as! CustomWorkoutCell
+        cell.configure(with: "Тренировка \(indexPath.section + 1)",
+                       descr: nil,
+                       examplesCount: "Упражнений: 2",
+                       backgroundImage: nil)
         
         let arrowImage = UIImageView()
         arrowImage.translatesAutoresizingMaskIntoConstraints = false
@@ -111,27 +101,21 @@ extension WorkoutViewController: UITableViewDelegate, UITableViewDataSource {
         arrowImage.tintColor = .main
         cell.contentView.addSubview(arrowImage)
         
+        cell.workoutTitle.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        cell.workoutDescr.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        
         NSLayoutConstraint.activate([
-            workoutTitle.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 20),
-            workoutTitle.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 30),
-            workoutTitle.widthAnchor.constraint(equalToConstant: 255),
+            cell.workoutTitle.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 20),
+            cell.workoutTitle.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 30),
             
-            examplesCount.topAnchor.constraint(equalTo: workoutTitle.bottomAnchor, constant: 2),
-            examplesCount.leadingAnchor.constraint(equalTo: workoutTitle.leadingAnchor),
-            examplesCount.widthAnchor.constraint(equalToConstant: 150),
+            cell.examplesCount.topAnchor.constraint(equalTo: cell.workoutTitle.bottomAnchor, constant: 3),
+            cell.examplesCount.leadingAnchor.constraint(equalTo: cell.workoutTitle.leadingAnchor),
             
             arrowImage.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
             arrowImage.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -25),
             arrowImage.widthAnchor.constraint(equalToConstant: 16),
             arrowImage.heightAnchor.constraint(equalToConstant: 16)
         ])
-        
-        cell.contentView.backgroundColor = .backgroundBlock
-        cell.contentView.layer.cornerRadius = 10
-        cell.contentView.clipsToBounds = true
-        
-        cell.layer.cornerRadius = 10
-        cell.clipsToBounds = true
         
         return cell
     }

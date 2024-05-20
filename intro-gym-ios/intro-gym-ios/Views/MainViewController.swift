@@ -34,7 +34,7 @@ class MainViewController: UIViewController {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(named: "plus"), for: .normal)
         btn.tintColor = .main
-        btn.addTarget(self, action: #selector(addWorkout), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(didTapAddWorkout), for: .touchUpInside)
         return btn
     }()
 
@@ -48,7 +48,7 @@ class MainViewController: UIViewController {
     private func createTable() {
         workoutsTableView = UITableView(frame: .zero)
         workoutsTableView.translatesAutoresizingMaskIntoConstraints = false
-        workoutsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "WorkoutCell")
+        workoutsTableView.register(CustomWorkoutCell.self, forCellReuseIdentifier: "WorkoutCell")
         workoutsTableView.delegate = self
         workoutsTableView.dataSource = self
         workoutsTableView.rowHeight = 120
@@ -82,7 +82,7 @@ class MainViewController: UIViewController {
         ])
     }
     
-    @objc private func addWorkout() {
+    @objc private func didTapAddWorkout() {
         
     }
 
@@ -102,60 +102,28 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WorkoutCell", for: indexPath)
-        
-        let backgroundImageCell = UIImageView()
-        backgroundImageCell.translatesAutoresizingMaskIntoConstraints = false
-        backgroundImageCell.image = UIImage(named: "CellWorkoutBackground")
-        backgroundImageCell.contentMode = .scaleAspectFill
-        backgroundImageCell.clipsToBounds = true
-        cell.contentView.addSubview(backgroundImageCell)
-        
-        let workoutTitle = UILabel()
-        workoutTitle.translatesAutoresizingMaskIntoConstraints = false
-        workoutTitle.text = "Тренировка 1"
-        workoutTitle.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        cell.contentView.addSubview(workoutTitle)
-        
-        let workoutDescr = UILabel()
-        workoutDescr.translatesAutoresizingMaskIntoConstraints = false
-        workoutDescr.text = "Какое-то писание, которое пользователь сам написал"
-        workoutDescr.numberOfLines = 2
-        workoutDescr.font = UIFont.systemFont(ofSize: 14, weight: .light)
-        cell.contentView.addSubview(workoutDescr)
-        
-        let examplesCount = UILabel()
-        examplesCount.translatesAutoresizingMaskIntoConstraints = false
-        examplesCount.text = "Упражнений: 2"
-        examplesCount.font = UIFont.systemFont(ofSize: 14, weight: .light)
-        examplesCount.textColor = .accent
-        cell.contentView.addSubview(examplesCount)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WorkoutCell", for: indexPath) as! CustomWorkoutCell
+        cell.configure(with: "Тренировка \(indexPath.section + 1)",
+                       descr: "Какое-то писание, которое пользователь сам написал",
+                       examplesCount: "Упражнений: 3",
+                       backgroundImage: UIImage(named: "CellWorkoutBackground"))
         
         NSLayoutConstraint.activate([
-            backgroundImageCell.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
-            backgroundImageCell.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
-            backgroundImageCell.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
-            backgroundImageCell.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
+            cell.backgroundImageCell.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+            cell.backgroundImageCell.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+            cell.backgroundImageCell.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
+            cell.backgroundImageCell.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
             
-            workoutTitle.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 15),
-            workoutTitle.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 15),
+            cell.workoutTitle.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 15),
+            cell.workoutTitle.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 15),
             
-            workoutDescr.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 15),
-            workoutDescr.topAnchor.constraint(equalTo: workoutTitle.bottomAnchor, constant: 5),
-            workoutDescr.widthAnchor.constraint(equalToConstant: 200),
+            cell.workoutDescr.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 15),
+            cell.workoutDescr.topAnchor.constraint(equalTo: cell.workoutTitle.bottomAnchor, constant: 5),
+            cell.workoutDescr.widthAnchor.constraint(equalToConstant: 200),
             
-            examplesCount.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 15),
-            examplesCount.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -15)
+            cell.examplesCount.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 15),
+            cell.examplesCount.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -15)
         ])
-        
-        let backgroundColorCell = UIView()
-        backgroundColorCell.backgroundColor = .backgroundBlock
-        cell.backgroundView = backgroundColorCell
-        
-        cell.contentView.layer.cornerRadius = 10
-        cell.contentView.clipsToBounds = true
-        cell.layer.cornerRadius = 10
-        cell.clipsToBounds = true
         
         return cell
     }
