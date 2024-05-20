@@ -19,6 +19,8 @@
 		85B0E18E2BEB2F17004D0BE6 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B0E18D2BEB2F17004D0BE6 /* StatsViewController.swift */; };
 		85B0E1902BEB2F4E004D0BE6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B0E18F2BEB2F4E004D0BE6 /* ProfileViewController.swift */; };
 		85B0E1922BEB698C004D0BE6 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B0E1912BEB698C004D0BE6 /* UIColor+Extensions.swift */; };
+		85D447912BF8A157007239B7 /* GenderFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D447902BF8A157007239B7 /* GenderFieldView.swift */; };
+		85D447932BF8A264007239B7 /* ProfileFieldsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D447922BF8A264007239B7 /* ProfileFieldsFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		85B0E18D2BEB2F17004D0BE6 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		85B0E18F2BEB2F4E004D0BE6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		85B0E1912BEB698C004D0BE6 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		85D447902BF8A157007239B7 /* GenderFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderFieldView.swift; sourceTree = "<group>"; };
+		85D447922BF8A264007239B7 /* ProfileFieldsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFieldsFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,12 +93,12 @@
 		85B0E1812BEB29F2004D0BE6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				85D4478F2BF8A0EA007239B7 /* ProfileView */,
 				85B0E16D2BEB1ED3004D0BE6 /* MainViewController.swift */,
 				85B0E1872BEB2CC4004D0BE6 /* TabBarController.swift */,
 				85B0E1892BEB2E21004D0BE6 /* WorkoutViewController.swift */,
 				85B0E18B2BEB2EE1004D0BE6 /* GuideViewController.swift */,
 				85B0E18D2BEB2F17004D0BE6 /* StatsViewController.swift */,
-				85B0E18F2BEB2F4E004D0BE6 /* ProfileViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -139,6 +143,16 @@
 				85B0E1772BEB1ED5004D0BE6 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		85D4478F2BF8A0EA007239B7 /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				85B0E18F2BEB2F4E004D0BE6 /* ProfileViewController.swift */,
+				85D447902BF8A157007239B7 /* GenderFieldView.swift */,
+				85D447922BF8A264007239B7 /* ProfileFieldsFactory.swift */,
+			);
+			path = ProfileView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,7 +230,9 @@
 				85B0E1742BEB1ED3004D0BE6 /* intro_gym_ios.xcdatamodeld in Sources */,
 				85B0E1902BEB2F4E004D0BE6 /* ProfileViewController.swift in Sources */,
 				85B0E18E2BEB2F17004D0BE6 /* StatsViewController.swift in Sources */,
+				85D447932BF8A264007239B7 /* ProfileFieldsFactory.swift in Sources */,
 				85B0E16E2BEB1ED3004D0BE6 /* MainViewController.swift in Sources */,
+				85D447912BF8A157007239B7 /* GenderFieldView.swift in Sources */,
 				85B0E18C2BEB2EE1004D0BE6 /* GuideViewController.swift in Sources */,
 				85B0E16A2BEB1ED3004D0BE6 /* AppDelegate.swift in Sources */,
 				85B0E1882BEB2CC4004D0BE6 /* TabBarController.swift in Sources */,
