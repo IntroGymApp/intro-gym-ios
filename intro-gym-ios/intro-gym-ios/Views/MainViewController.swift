@@ -83,7 +83,8 @@ class MainViewController: UIViewController {
     }
     
     @objc private func didTapAddWorkout() {
-        
+        let selectWorkoutVC = SelectWorkoutViewController()
+        navigationController?.pushViewController(selectWorkoutVC, animated: true)
     }
 
 }
