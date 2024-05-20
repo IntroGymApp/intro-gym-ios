@@ -30,7 +30,7 @@ class TabBarController: UITabBarController {
         let stats = createNavigation(title: "Статистика", image: UIImage(named: "stats")!, viewController: statsViewController)
         let profile = createNavigation(title: "Профиль", image: UIImage(named: "profile")!, viewController: profileViewController)
         
-        setViewControllers([main, workout, guide, stats, profile], animated: true)
+        setViewControllers([main, workout, guide, stats, profile], animated: false)
     }
     
     private func createNavigation(title: String, image: UIImage, viewController: UIViewController) -> UINavigationController {
