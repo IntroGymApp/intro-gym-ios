@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		857583FA2BFB4AC400267D2E /* SelectWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857583F92BFB4AC400267D2E /* SelectWorkoutViewController.swift */; };
+		857583FD2BFB559600267D2E /* CustomWorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857583FC2BFB559600267D2E /* CustomWorkoutCell.swift */; };
 		85B0E16A2BEB1ED3004D0BE6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B0E1692BEB1ED3004D0BE6 /* AppDelegate.swift */; };
 		85B0E16C2BEB1ED3004D0BE6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B0E16B2BEB1ED3004D0BE6 /* SceneDelegate.swift */; };
 		85B0E16E2BEB1ED3004D0BE6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B0E16D2BEB1ED3004D0BE6 /* MainViewController.swift */; };
@@ -24,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		857583F92BFB4AC400267D2E /* SelectWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkoutViewController.swift; sourceTree = "<group>"; };
+		857583FC2BFB559600267D2E /* CustomWorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWorkoutCell.swift; sourceTree = "<group>"; };
 		85B0E1662BEB1ED3004D0BE6 /* intro-gym-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "intro-gym-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85B0E1692BEB1ED3004D0BE6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85B0E16B2BEB1ED3004D0BE6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,6 +57,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		857583F82BFB4AA100267D2E /* SelectWorkoutView */ = {
+			isa = PBXGroup;
+			children = (
+				857583F92BFB4AC400267D2E /* SelectWorkoutViewController.swift */,
+			);
+			path = SelectWorkoutView;
+			sourceTree = "<group>";
+		};
+		857583FB2BFB556E00267D2E /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				857583FC2BFB559600267D2E /* CustomWorkoutCell.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
 		85B0E15D2BEB1ED3004D0BE6 = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +113,8 @@
 		85B0E1812BEB29F2004D0BE6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				857583FB2BFB556E00267D2E /* CustomViews */,
+				857583F82BFB4AA100267D2E /* SelectWorkoutView */,
 				85D4478F2BF8A0EA007239B7 /* ProfileView */,
 				85B0E16D2BEB1ED3004D0BE6 /* MainViewController.swift */,
 				85B0E1872BEB2CC4004D0BE6 /* TabBarController.swift */,
@@ -232,8 +254,10 @@
 				85B0E18E2BEB2F17004D0BE6 /* StatsViewController.swift in Sources */,
 				85D447932BF8A264007239B7 /* ProfileFieldsFactory.swift in Sources */,
 				85B0E16E2BEB1ED3004D0BE6 /* MainViewController.swift in Sources */,
+				857583FA2BFB4AC400267D2E /* SelectWorkoutViewController.swift in Sources */,
 				85D447912BF8A157007239B7 /* GenderFieldView.swift in Sources */,
 				85B0E18C2BEB2EE1004D0BE6 /* GuideViewController.swift in Sources */,
+				857583FD2BFB559600267D2E /* CustomWorkoutCell.swift in Sources */,
 				85B0E16A2BEB1ED3004D0BE6 /* AppDelegate.swift in Sources */,
 				85B0E1882BEB2CC4004D0BE6 /* TabBarController.swift in Sources */,
 				85B0E16C2BEB1ED3004D0BE6 /* SceneDelegate.swift in Sources */,
