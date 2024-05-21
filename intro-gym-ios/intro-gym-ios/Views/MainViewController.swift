@@ -132,6 +132,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let startWorkoutVC = StartWorkoutViewController()
+        navigationController?.pushViewController(startWorkoutVC, animated: true)
+    }
 
 
 }

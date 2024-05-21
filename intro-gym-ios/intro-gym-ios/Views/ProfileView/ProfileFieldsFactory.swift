@@ -183,7 +183,7 @@ class ProfileFieldsFactory {
         let value = UILabel()
         value.translatesAutoresizingMaskIntoConstraints = false
         value.text = count
-        value.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        value.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         value.textColor = .main
         fieldView.addSubview(value)
         

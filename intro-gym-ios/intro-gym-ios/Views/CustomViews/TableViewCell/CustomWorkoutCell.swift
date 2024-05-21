@@ -60,6 +60,7 @@ class CustomWorkoutCell: UITableViewCell {
         backgroundColorView.backgroundColor = .backgroundBlock
         backgroundView = backgroundColorView
         
+        selectionStyle = .none
         contentView.layer.cornerRadius = 10
         contentView.clipsToBounds = true
         layer.cornerRadius = 10
