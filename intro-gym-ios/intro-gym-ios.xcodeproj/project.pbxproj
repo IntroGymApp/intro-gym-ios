@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		856D3F6B2BFCA31200D8326E /* StartWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856D3F6A2BFCA31200D8326E /* StartWorkoutViewController.swift */; };
 		856D3F6E2BFCA41000D8326E /* CustomExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856D3F6D2BFCA41000D8326E /* CustomExerciseCell.swift */; };
+		856D3F9B2BFDF86B00D8326E /* CreateWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856D3F9A2BFDF86B00D8326E /* CreateWorkoutViewController.swift */; };
+		856D3F9D2BFE0C1B00D8326E /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856D3F9C2BFE0C1B00D8326E /* Factory.swift */; };
 		857583FA2BFB4AC400267D2E /* SelectWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857583F92BFB4AC400267D2E /* SelectWorkoutViewController.swift */; };
 		857583FD2BFB559600267D2E /* CustomWorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857583FC2BFB559600267D2E /* CustomWorkoutCell.swift */; };
 		85B0E16A2BEB1ED3004D0BE6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B0E1692BEB1ED3004D0BE6 /* AppDelegate.swift */; };
@@ -30,6 +32,8 @@
 /* Begin PBXFileReference section */
 		856D3F6A2BFCA31200D8326E /* StartWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorkoutViewController.swift; sourceTree = "<group>"; };
 		856D3F6D2BFCA41000D8326E /* CustomExerciseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExerciseCell.swift; sourceTree = "<group>"; };
+		856D3F9A2BFDF86B00D8326E /* CreateWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutViewController.swift; sourceTree = "<group>"; };
+		856D3F9C2BFE0C1B00D8326E /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		857583F92BFB4AC400267D2E /* SelectWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkoutViewController.swift; sourceTree = "<group>"; };
 		857583FC2BFB559600267D2E /* CustomWorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWorkoutCell.swift; sourceTree = "<group>"; };
 		85B0E1662BEB1ED3004D0BE6 /* intro-gym-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "intro-gym-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +82,22 @@
 			path = TableViewCell;
 			sourceTree = "<group>";
 		};
+		856D3F992BFDF83500D8326E /* CreateWorkoutView */ = {
+			isa = PBXGroup;
+			children = (
+				856D3F9A2BFDF86B00D8326E /* CreateWorkoutViewController.swift */,
+			);
+			path = CreateWorkoutView;
+			sourceTree = "<group>";
+		};
+		856D3F9E2BFE0D5700D8326E /* ElementsFactory */ = {
+			isa = PBXGroup;
+			children = (
+				856D3F9C2BFE0C1B00D8326E /* Factory.swift */,
+			);
+			path = ElementsFactory;
+			sourceTree = "<group>";
+		};
 		857583F82BFB4AA100267D2E /* SelectWorkoutView */ = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +137,7 @@
 				85B0E1852BEB2A1D004D0BE6 /* Protocols */,
 				85B0E1842BEB2A17004D0BE6 /* Assets */,
 				85B0E1832BEB2A11004D0BE6 /* App */,
+				856D3F9E2BFE0D5700D8326E /* ElementsFactory */,
 				85B0E1822BEB29F8004D0BE6 /* Presenters */,
 				85B0E1812BEB29F2004D0BE6 /* Views */,
 				85B0E1802BEB29E0004D0BE6 /* Models */,
@@ -134,6 +155,7 @@
 		85B0E1812BEB29F2004D0BE6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				856D3F992BFDF83500D8326E /* CreateWorkoutView */,
 				856D3F692BFCA2C400D8326E /* StartWorkoutView */,
 				857583FB2BFB556E00267D2E /* CustomViews */,
 				857583F82BFB4AA100267D2E /* SelectWorkoutView */,
@@ -277,7 +299,9 @@
 				85D447932BF8A264007239B7 /* ProfileFieldsFactory.swift in Sources */,
 				856D3F6E2BFCA41000D8326E /* CustomExerciseCell.swift in Sources */,
 				85B0E16E2BEB1ED3004D0BE6 /* MainViewController.swift in Sources */,
+				856D3F9B2BFDF86B00D8326E /* CreateWorkoutViewController.swift in Sources */,
 				857583FA2BFB4AC400267D2E /* SelectWorkoutViewController.swift in Sources */,
+				856D3F9D2BFE0C1B00D8326E /* Factory.swift in Sources */,
 				85D447912BF8A157007239B7 /* GenderFieldView.swift in Sources */,
 				85B0E18C2BEB2EE1004D0BE6 /* GuideViewController.swift in Sources */,
 				857583FD2BFB559600267D2E /* CustomWorkoutCell.swift in Sources */,

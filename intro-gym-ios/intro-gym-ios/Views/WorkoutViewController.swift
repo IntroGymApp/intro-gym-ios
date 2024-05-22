@@ -70,7 +70,8 @@ class WorkoutViewController: UIViewController {
     }
     
     @objc private func createWorkout() {
-        
+        let createWorkoutVC = CreateWorkoutViewController()
+        navigationController?.pushViewController(createWorkoutVC, animated: true)
     }
 
 }
