@@ -71,6 +71,7 @@ class WorkoutViewController: UIViewController {
     
     @objc private func createWorkout() {
         let createWorkoutVC = CreateWorkoutViewController()
+        createWorkoutVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(createWorkoutVC, animated: true)
     }
 

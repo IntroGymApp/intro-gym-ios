@@ -56,6 +56,15 @@ class Factory {
         return button
     }
     
+    static func createTitleForPickerComponent(text: String) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = text
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .accent
+        return label
+    }
+    
     //MARK: - Constructors of the views
     static func createHeaderWithField(header: String, fieldPlaceholder: String) -> UIView {
         let label = createHeader(text: header)

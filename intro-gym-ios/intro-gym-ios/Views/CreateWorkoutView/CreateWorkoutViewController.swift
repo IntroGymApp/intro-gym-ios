@@ -44,7 +44,6 @@ class CreateWorkoutViewController: UIViewController {
     private func viewConfigure() {
         navigationItem.title = "Тренировка"
         navigationController?.navigationBar.tintColor = .main
-        tabBarController?.tabBar.isHidden = true
         view.backgroundColor = .background
     }
     
@@ -126,6 +125,12 @@ extension CreateWorkoutViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let editExcerciseVC = EditExcerciseViewController()
+        editExcerciseVC.modalPresentationStyle = .pageSheet
+        present(editExcerciseVC, animated: true)
     }
     
 }
