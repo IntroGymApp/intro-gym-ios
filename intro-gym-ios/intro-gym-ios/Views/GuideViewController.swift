@@ -104,5 +104,10 @@ extension GuideViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let listExcercisesVC = MuscleGroupListViewController()
+        navigationController?.pushViewController(listExcercisesVC, animated: true)
+    }
+    
     
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CreateWorkoutViewController: UIViewController {
+class EditWorkoutViewController: UIViewController {
     
     private var excersicesTableView: UITableView!
     
@@ -98,7 +98,7 @@ class CreateWorkoutViewController: UIViewController {
 
 }
 
-extension CreateWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
+extension EditWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1

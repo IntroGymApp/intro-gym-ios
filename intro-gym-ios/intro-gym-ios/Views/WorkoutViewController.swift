@@ -49,6 +49,7 @@ class WorkoutViewController: UIViewController {
     
     private func setupLayout() {
         view.backgroundColor = .background
+        navigationItem.title = "Ваши тренировки"
         view.addSubview(createWorkoutLabel)
         view.addSubview(createWorkoutButton)
         view.addSubview(createdWorkoutsTableView)
@@ -70,9 +71,9 @@ class WorkoutViewController: UIViewController {
     }
     
     @objc private func createWorkout() {
-        let createWorkoutVC = CreateWorkoutViewController()
-        createWorkoutVC.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(createWorkoutVC, animated: true)
+        let editWorkoutVC = EditWorkoutViewController()
+        editWorkoutVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(editWorkoutVC, animated: true)
     }
 
 }
@@ -103,9 +104,6 @@ extension WorkoutViewController: UITableViewDelegate, UITableViewDataSource {
         arrowImage.tintColor = .main
         cell.contentView.addSubview(arrowImage)
         
-        cell.workoutTitle.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        cell.workoutDescr.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        
         NSLayoutConstraint.activate([
             cell.workoutTitle.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 20),
             cell.workoutTitle.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 30),
@@ -124,6 +122,12 @@ extension WorkoutViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let editWorkoutVC = EditWorkoutViewController()
+        editWorkoutVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(editWorkoutVC, animated: true)
     }
     
     
