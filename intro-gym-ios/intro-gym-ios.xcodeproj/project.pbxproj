@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		850423A52C047ADB00D53B70 /* ExerciseNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850423A42C047ADB00D53B70 /* ExerciseNoteTableViewCell.swift */; };
 		8540F80E2BFECE8500B8109C /* EditExcerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8540F80D2BFECE8500B8109C /* EditExcerciseViewController.swift */; };
 		8540F8102C00ABBD00B8109C /* MuscleGroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8540F80F2C00ABBD00B8109C /* MuscleGroupListViewController.swift */; };
+		8540F8122C01D70D00B8109C /* StartExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8540F8112C01D70D00B8109C /* StartExerciseViewController.swift */; };
 		856D3F6B2BFCA31200D8326E /* StartWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856D3F6A2BFCA31200D8326E /* StartWorkoutViewController.swift */; };
 		856D3F6E2BFCA41000D8326E /* CustomExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856D3F6D2BFCA41000D8326E /* CustomExerciseCell.swift */; };
 		856D3F9B2BFDF86B00D8326E /* EditWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856D3F9A2BFDF86B00D8326E /* EditWorkoutViewController.swift */; };
@@ -32,8 +34,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		850423A42C047ADB00D53B70 /* ExerciseNoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseNoteTableViewCell.swift; sourceTree = "<group>"; };
 		8540F80D2BFECE8500B8109C /* EditExcerciseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExcerciseViewController.swift; sourceTree = "<group>"; };
 		8540F80F2C00ABBD00B8109C /* MuscleGroupListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleGroupListViewController.swift; sourceTree = "<group>"; };
+		8540F8112C01D70D00B8109C /* StartExerciseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartExerciseViewController.swift; sourceTree = "<group>"; };
 		856D3F6A2BFCA31200D8326E /* StartWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorkoutViewController.swift; sourceTree = "<group>"; };
 		856D3F6D2BFCA41000D8326E /* CustomExerciseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExerciseCell.swift; sourceTree = "<group>"; };
 		856D3F9A2BFDF86B00D8326E /* EditWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWorkoutViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				856D3F6A2BFCA31200D8326E /* StartWorkoutViewController.swift */,
+				8540F8112C01D70D00B8109C /* StartExerciseViewController.swift */,
 			);
 			path = StartWorkoutView;
 			sourceTree = "<group>";
@@ -90,6 +95,7 @@
 			children = (
 				857583FC2BFB559600267D2E /* CustomWorkoutCell.swift */,
 				856D3F6D2BFCA41000D8326E /* CustomExerciseCell.swift */,
+				850423A42C047ADB00D53B70 /* ExerciseNoteTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -309,6 +315,7 @@
 				85B0E1922BEB698C004D0BE6 /* UIColor+Extensions.swift in Sources */,
 				85B0E1742BEB1ED3004D0BE6 /* intro_gym_ios.xcdatamodeld in Sources */,
 				85B0E1902BEB2F4E004D0BE6 /* ProfileViewController.swift in Sources */,
+				8540F8122C01D70D00B8109C /* StartExerciseViewController.swift in Sources */,
 				85B0E18E2BEB2F17004D0BE6 /* StatsViewController.swift in Sources */,
 				85D447932BF8A264007239B7 /* ProfileFieldsFactory.swift in Sources */,
 				856D3F6E2BFCA41000D8326E /* CustomExerciseCell.swift in Sources */,
@@ -321,6 +328,7 @@
 				857583FD2BFB559600267D2E /* CustomWorkoutCell.swift in Sources */,
 				856D3F6B2BFCA31200D8326E /* StartWorkoutViewController.swift in Sources */,
 				8540F80E2BFECE8500B8109C /* EditExcerciseViewController.swift in Sources */,
+				850423A52C047ADB00D53B70 /* ExerciseNoteTableViewCell.swift in Sources */,
 				85B0E16A2BEB1ED3004D0BE6 /* AppDelegate.swift in Sources */,
 				85B0E1882BEB2CC4004D0BE6 /* TabBarController.swift in Sources */,
 				8540F8102C00ABBD00B8109C /* MuscleGroupListViewController.swift in Sources */,
