@@ -9,7 +9,7 @@ import UIKit
 
 class MuscleGroupListViewController: UIViewController {
     
-    private var listExercisesTableView: UITableView!
+    private var listMuscleTableView: UITableView!
     private let imagesForCellName = ["breast",
                                      "legs",
                                      "shoulders",
@@ -27,27 +27,27 @@ class MuscleGroupListViewController: UIViewController {
     }
     
     private func createTable() {
-        listExercisesTableView = UITableView(frame: .zero)
-        listExercisesTableView.translatesAutoresizingMaskIntoConstraints = false
-        listExercisesTableView.register(CustomWorkoutCell.self, forCellReuseIdentifier: "ExcersiceCell")
-        listExercisesTableView.delegate = self
-        listExercisesTableView.dataSource = self
-        listExercisesTableView.rowHeight = 78
-        listExercisesTableView.separatorStyle = .none
-        listExercisesTableView.backgroundColor = .clear
+        listMuscleTableView = UITableView(frame: .zero)
+        listMuscleTableView.translatesAutoresizingMaskIntoConstraints = false
+        listMuscleTableView.register(CustomWorkoutCell.self, forCellReuseIdentifier: "ExcersiceCell")
+        listMuscleTableView.delegate = self
+        listMuscleTableView.dataSource = self
+        listMuscleTableView.rowHeight = 78
+        listMuscleTableView.separatorStyle = .none
+        listMuscleTableView.backgroundColor = .clear
     }
     
     private func setupLayout() {
         view.backgroundColor = .background
         navigationItem.title = "Упражнения"
         navigationController?.navigationBar.tintColor = .main
-        view.addSubview(listExercisesTableView)
+        view.addSubview(listMuscleTableView)
         
         NSLayoutConstraint.activate([
-            listExercisesTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            listExercisesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            listExercisesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            listExercisesTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            listMuscleTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            listMuscleTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            listMuscleTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            listMuscleTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 
@@ -109,6 +109,11 @@ extension MuscleGroupListViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let exerciseGroupListVC = ExerciseListViewController()
+        navigationController?.pushViewController(exerciseGroupListVC, animated: true)
     }
     
 }

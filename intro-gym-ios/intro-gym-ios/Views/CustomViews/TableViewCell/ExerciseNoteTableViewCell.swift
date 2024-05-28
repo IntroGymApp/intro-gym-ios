@@ -68,7 +68,7 @@ class ExerciseNoteTableViewCell: UITableViewCell {
         selectionStyle = .none
         contentView.layer.borderWidth = 2
         contentView.layer.borderColor = UIColor.backgroundBlock.cgColor
-        contentView.backgroundColor = .clear
+        contentView.backgroundColor = .background
         contentView.layer.cornerRadius = 8
         contentView.clipsToBounds = true
         layer.cornerRadius = 8
