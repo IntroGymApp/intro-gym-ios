@@ -98,4 +98,9 @@ extension ExerciseListViewController: UITableViewDelegate, UITableViewDataSource
         return UIView()
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let exerciseDescriptionVC = ExerciseDescriptionViewController()
+        navigationController?.pushViewController(exerciseDescriptionVC, animated: true)
+    }
+    
 }
