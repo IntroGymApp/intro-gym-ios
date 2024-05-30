@@ -307,4 +307,185 @@ class Factory {
         return containerView
     }
     
+    static func createFieldWithName(name: String, nameData: String) -> UIView {
+        let containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = name
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .main
+        containerView.addSubview(label)
+        
+        let data = UILabel()
+        data.translatesAutoresizingMaskIntoConstraints = false
+        data.text = nameData
+        data.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        data.textColor = .accent
+        containerView.addSubview(data)
+        
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: containerView.topAnchor),
+            label.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            label.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            
+            data.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 60),
+            data.bottomAnchor.constraint(equalTo: label.bottomAnchor)
+        ])
+        
+        return containerView
+    }
+    
+    static func createCalcViews() -> UIView {
+        let containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Base calc
+        let baseCalc = UIView()
+        baseCalc.translatesAutoresizingMaskIntoConstraints = false
+        baseCalc.backgroundColor = .backgroundBlock
+        baseCalc.layer.cornerRadius = 10
+        
+        let baseCalcImage = UIImageView(image: UIImage(named: "Ccal"))
+        baseCalcImage.translatesAutoresizingMaskIntoConstraints = false
+        baseCalcImage.contentMode = .scaleAspectFill
+        baseCalcImage.clipsToBounds = true
+        baseCalcImage.layer.cornerRadius = 10
+        baseCalc.addSubview(baseCalcImage)
+        
+        let valueCcal = createCalcDataField(count: "2780", unitName: "ккал")
+        baseCalc.addSubview(valueCcal)
+        
+        let valueProtein = createCalcDataField(count: "78", unitName: "белки")
+        baseCalc.addSubview(valueProtein)
+        
+        let valueFat = createCalcDataField(count: "90", unitName: "жиры")
+        baseCalc.addSubview(valueFat)
+        
+        let valueCarb = createCalcDataField(count: "329", unitName: "углеводы")
+        baseCalc.addSubview(valueCarb)
+        
+        // Imt calc
+        let imtCalc = UIView()
+        imtCalc.translatesAutoresizingMaskIntoConstraints = false
+        imtCalc.backgroundColor = .backgroundBlock
+        imtCalc.layer.cornerRadius = 10
+        
+        let imtCalcImage = UIImageView(image: UIImage(named: "IMT"))
+        imtCalcImage.translatesAutoresizingMaskIntoConstraints = false
+        imtCalcImage.contentMode = .scaleAspectFill
+        imtCalcImage.clipsToBounds = true
+        imtCalcImage.layer.cornerRadius = 10
+        imtCalc.addSubview(imtCalcImage)
+        
+        let valueImt = createCalcDataField(count: "25.3", unitName: "ИМТ")
+        imtCalc.addSubview(valueImt)
+        
+        // Perfect weight calc
+        let perfectWeightCalc = UIView()
+        perfectWeightCalc.translatesAutoresizingMaskIntoConstraints = false
+        perfectWeightCalc.backgroundColor = .backgroundBlock
+        perfectWeightCalc.layer.cornerRadius = 10
+        
+        let perfectWeightCalcImage = UIImageView(image: UIImage(named: "PerfectWeight"))
+        perfectWeightCalcImage.translatesAutoresizingMaskIntoConstraints = false
+        perfectWeightCalcImage.contentMode = .scaleAspectFill
+        perfectWeightCalcImage.clipsToBounds = true
+        perfectWeightCalcImage.layer.cornerRadius = 10
+        perfectWeightCalc.addSubview(perfectWeightCalcImage)
+        
+        let valueWeight = createCalcDataField(count: "70" + " кг", unitName: "идеальный вес")
+        perfectWeightCalc.addSubview(valueWeight)
+        
+        containerView.addSubview(baseCalc)
+        containerView.addSubview(imtCalc)
+        containerView.addSubview(perfectWeightCalc)
+        
+        NSLayoutConstraint.activate([
+            // base calc
+            baseCalc.topAnchor.constraint(equalTo: containerView.topAnchor),
+            baseCalc.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            baseCalc.widthAnchor.constraint(equalToConstant: 168),
+            baseCalc.heightAnchor.constraint(equalToConstant: 168),
+            
+            baseCalcImage.topAnchor.constraint(equalTo: baseCalc.topAnchor),
+            baseCalcImage.leadingAnchor.constraint(equalTo: baseCalc.leadingAnchor),
+            baseCalcImage.trailingAnchor.constraint(equalTo: baseCalc.trailingAnchor),
+            baseCalcImage.bottomAnchor.constraint(equalTo: baseCalc.bottomAnchor),
+            
+            valueCcal.topAnchor.constraint(equalTo: baseCalc.topAnchor, constant: 10),
+            valueCcal.leadingAnchor.constraint(equalTo: baseCalc.leadingAnchor, constant: 15),
+            
+            valueProtein.topAnchor.constraint(equalTo: valueCcal.topAnchor, constant: 24),
+            valueProtein.leadingAnchor.constraint(equalTo: valueCcal.leadingAnchor),
+            
+            valueFat.topAnchor.constraint(equalTo: valueProtein.topAnchor, constant: 24),
+            valueFat.leadingAnchor.constraint(equalTo: valueCcal.leadingAnchor),
+            
+            valueCarb.topAnchor.constraint(equalTo: valueFat.topAnchor, constant: 24),
+            valueCarb.leadingAnchor.constraint(equalTo: valueCcal.leadingAnchor),
+            
+            // imt calc
+            imtCalc.topAnchor.constraint(equalTo: containerView.topAnchor),
+            imtCalc.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            imtCalc.widthAnchor.constraint(equalToConstant: 190),
+            imtCalc.heightAnchor.constraint(equalToConstant: 78),
+            
+            imtCalcImage.topAnchor.constraint(equalTo: imtCalc.topAnchor),
+            imtCalcImage.leadingAnchor.constraint(equalTo: imtCalc.leadingAnchor),
+            imtCalcImage.trailingAnchor.constraint(equalTo: imtCalc.trailingAnchor),
+            imtCalcImage.bottomAnchor.constraint(equalTo: imtCalc.bottomAnchor),
+            
+            valueImt.topAnchor.constraint(equalTo: imtCalc.topAnchor, constant: 12),
+            valueImt.leadingAnchor.constraint(equalTo: imtCalc.leadingAnchor, constant: 15),
+            
+            // perfect weight calc
+            perfectWeightCalc.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            perfectWeightCalc.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            perfectWeightCalc.widthAnchor.constraint(equalToConstant: 190),
+            perfectWeightCalc.heightAnchor.constraint(equalToConstant: 78),
+            
+            perfectWeightCalcImage.topAnchor.constraint(equalTo: perfectWeightCalc.topAnchor),
+            perfectWeightCalcImage.leadingAnchor.constraint(equalTo: perfectWeightCalc.leadingAnchor),
+            perfectWeightCalcImage.trailingAnchor.constraint(equalTo: perfectWeightCalc.trailingAnchor),
+            perfectWeightCalcImage.bottomAnchor.constraint(equalTo: perfectWeightCalc.bottomAnchor),
+            
+            valueWeight.topAnchor.constraint(equalTo: perfectWeightCalc.bottomAnchor, constant: -30),
+            valueWeight.leadingAnchor.constraint(equalTo: perfectWeightCalc.leadingAnchor, constant: 30),
+            
+        ])
+        
+        return containerView
+    }
+    
+    static func createCalcDataField(count: String, unitName: String) -> UIView {
+        let fieldView = UIView()
+        fieldView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let value = UILabel()
+        value.translatesAutoresizingMaskIntoConstraints = false
+        value.text = count
+        value.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        value.textColor = .main
+        fieldView.addSubview(value)
+        
+        let unit = UILabel()
+        unit.translatesAutoresizingMaskIntoConstraints = false
+        unit.text = unitName
+        unit.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        unit.textColor = .accent
+        fieldView.addSubview(unit)
+        
+        NSLayoutConstraint.activate([
+            value.leadingAnchor.constraint(equalTo: fieldView.leadingAnchor),
+            value.topAnchor.constraint(equalTo: fieldView.topAnchor),
+            
+            unit.leadingAnchor.constraint(equalTo: value.trailingAnchor, constant: 6),
+            unit.bottomAnchor.constraint(equalTo: value.bottomAnchor),
+        ])
+        
+        return fieldView
+    }
+    
 }

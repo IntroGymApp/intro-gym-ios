@@ -31,8 +31,6 @@
 		85B0E1922BEB698C004D0BE6 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B0E1912BEB698C004D0BE6 /* UIColor+Extensions.swift */; };
 		85C189982C05F5DD002014CA /* ExerciseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C189972C05F5DC002014CA /* ExerciseListViewController.swift */; };
 		85C1899A2C05FE97002014CA /* ExerciseDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C189992C05FE97002014CA /* ExerciseDescriptionViewController.swift */; };
-		85D447912BF8A157007239B7 /* GenderFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D447902BF8A157007239B7 /* GenderFieldView.swift */; };
-		85D447932BF8A264007239B7 /* ProfileFieldsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D447922BF8A264007239B7 /* ProfileFieldsFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,8 +60,6 @@
 		85B0E1912BEB698C004D0BE6 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		85C189972C05F5DC002014CA /* ExerciseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListViewController.swift; sourceTree = "<group>"; };
 		85C189992C05FE97002014CA /* ExerciseDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDescriptionViewController.swift; sourceTree = "<group>"; };
-		85D447902BF8A157007239B7 /* GenderFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderFieldView.swift; sourceTree = "<group>"; };
-		85D447922BF8A264007239B7 /* ProfileFieldsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFieldsFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,8 +237,6 @@
 			isa = PBXGroup;
 			children = (
 				85B0E18F2BEB2F4E004D0BE6 /* ProfileViewController.swift */,
-				85D447902BF8A157007239B7 /* GenderFieldView.swift */,
-				85D447922BF8A264007239B7 /* ProfileFieldsFactory.swift */,
 			);
 			path = ProfileView;
 			sourceTree = "<group>";
@@ -324,14 +318,12 @@
 				8540F8122C01D70D00B8109C /* StartExerciseViewController.swift in Sources */,
 				85C1899A2C05FE97002014CA /* ExerciseDescriptionViewController.swift in Sources */,
 				85B0E18E2BEB2F17004D0BE6 /* StatsViewController.swift in Sources */,
-				85D447932BF8A264007239B7 /* ProfileFieldsFactory.swift in Sources */,
 				856D3F6E2BFCA41000D8326E /* CustomExerciseCell.swift in Sources */,
 				85B0E16E2BEB1ED3004D0BE6 /* MainViewController.swift in Sources */,
 				856D3F9B2BFDF86B00D8326E /* EditWorkoutViewController.swift in Sources */,
 				857583FA2BFB4AC400267D2E /* SelectWorkoutViewController.swift in Sources */,
 				85C189982C05F5DD002014CA /* ExerciseListViewController.swift in Sources */,
 				856D3F9D2BFE0C1B00D8326E /* Factory.swift in Sources */,
-				85D447912BF8A157007239B7 /* GenderFieldView.swift in Sources */,
 				85B0E18C2BEB2EE1004D0BE6 /* GuideViewController.swift in Sources */,
 				857583FD2BFB559600267D2E /* CustomWorkoutCell.swift in Sources */,
 				856D3F6B2BFCA31200D8326E /* StartWorkoutViewController.swift in Sources */,
