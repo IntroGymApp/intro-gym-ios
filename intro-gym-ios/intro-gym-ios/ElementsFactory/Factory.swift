@@ -429,7 +429,7 @@ class Factory {
             // imt calc
             imtCalc.topAnchor.constraint(equalTo: containerView.topAnchor),
             imtCalc.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            imtCalc.widthAnchor.constraint(equalToConstant: 190),
+            imtCalc.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1.0, constant: -168 - 12),
             imtCalc.heightAnchor.constraint(equalToConstant: 78),
             
             imtCalcImage.topAnchor.constraint(equalTo: imtCalc.topAnchor),
@@ -443,7 +443,7 @@ class Factory {
             // perfect weight calc
             perfectWeightCalc.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             perfectWeightCalc.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            perfectWeightCalc.widthAnchor.constraint(equalToConstant: 190),
+            perfectWeightCalc.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1.0, constant: -168 - 12),
             perfectWeightCalc.heightAnchor.constraint(equalToConstant: 78),
             
             perfectWeightCalcImage.topAnchor.constraint(equalTo: perfectWeightCalc.topAnchor),
@@ -452,7 +452,7 @@ class Factory {
             perfectWeightCalcImage.bottomAnchor.constraint(equalTo: perfectWeightCalc.bottomAnchor),
             
             valueWeight.topAnchor.constraint(equalTo: perfectWeightCalc.bottomAnchor, constant: -30),
-            valueWeight.leadingAnchor.constraint(equalTo: perfectWeightCalc.leadingAnchor, constant: 30),
+            valueWeight.leadingAnchor.constraint(equalTo: perfectWeightCalc.leadingAnchor, constant: 10),
             
         ])
         
