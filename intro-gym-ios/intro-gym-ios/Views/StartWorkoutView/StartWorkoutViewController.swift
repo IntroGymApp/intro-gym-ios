@@ -15,12 +15,16 @@ class StartWorkoutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationConfigure()
+        configureView()
         createTable()
         setupLayout()
     }
     
-    private func navigationConfigure() {
+    private func configureView() {
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        
         navigationItem.title = "Тренировка N"
         navigationController?.navigationBar.tintColor = .main
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "edit"), style: .done, target: self, action: #selector(didTapEditWorkout))

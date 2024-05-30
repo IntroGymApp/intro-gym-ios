@@ -14,8 +14,19 @@ class ExerciseListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureView()
         createTable()
         setupLayout()
+    }
+    
+    private func configureView() {
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        
+        navigationItem.title = "Грудь"
+        
+        view.backgroundColor = .background
     }
     
     private func createTable() {
@@ -30,12 +41,10 @@ class ExerciseListViewController: UIViewController {
     }
     
     private func setupLayout() {
-        view.backgroundColor = .background
-        navigationItem.title = "Грудь"
         view.addSubview(listExercisesTableView)
         
         NSLayoutConstraint.activate([
-            listExercisesTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            listExercisesTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             listExercisesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             listExercisesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             listExercisesTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)

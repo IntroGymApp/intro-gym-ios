@@ -14,8 +14,16 @@ class GuideViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureView()
         createTable()
         setupLayout()
+    }
+    
+    private func configureView() {
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        view.backgroundColor = .background
     }
     
     private func createTable() {
@@ -30,11 +38,10 @@ class GuideViewController: UIViewController {
     }
     
     private func setupLayout() {
-        view.backgroundColor = .background
         view.addSubview(guideTableView)
         
         NSLayoutConstraint.activate([
-            guideTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            guideTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             guideTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             guideTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             guideTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)

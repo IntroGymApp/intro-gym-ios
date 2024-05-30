@@ -32,8 +32,18 @@ class WorkoutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureView()
         createTable()
         setupLayout()
+    }
+    
+    private func configureView() {
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        
+        view.backgroundColor = .background
+        navigationItem.title = "Ваши тренировки"
     }
     
     private func createTable() {
@@ -48,8 +58,6 @@ class WorkoutViewController: UIViewController {
     }
     
     private func setupLayout() {
-        view.backgroundColor = .background
-        navigationItem.title = "Ваши тренировки"
         view.addSubview(createWorkoutLabel)
         view.addSubview(createWorkoutButton)
         view.addSubview(createdWorkoutsTableView)

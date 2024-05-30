@@ -57,6 +57,10 @@ class MainViewController: UIViewController {
     }
     
     private func setupLayout() {
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        
         view.backgroundColor = .background
         view.addSubview(welcomeLabel)
         view.addSubview(welcomeBackUserLabel)
@@ -64,7 +68,7 @@ class MainViewController: UIViewController {
         view.addSubview(workoutsTableView)
         
         NSLayoutConstraint.activate([
-            welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             welcomeLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             
             welcomeBackUserLabel.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor),

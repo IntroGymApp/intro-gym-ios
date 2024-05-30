@@ -75,7 +75,7 @@ class EditExcerciseViewController: UIViewController {
         stack.addArrangedSubview(weightLabel)
         
         NSLayoutConstraint.activate([
-            pageTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            pageTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             pageTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             excerciseInfoButton.centerYAnchor.constraint(equalTo: pageTitle.centerYAnchor),

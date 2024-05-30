@@ -61,7 +61,7 @@ class StatsViewController: UIViewController {
         view.addSubview(motivationText)
         
         NSLayoutConstraint.activate([
-            motivationContaionerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            motivationContaionerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             motivationContaionerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             motivationContaionerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             motivationContaionerView.bottomAnchor.constraint(equalTo: motivationText.bottomAnchor, constant: 30),

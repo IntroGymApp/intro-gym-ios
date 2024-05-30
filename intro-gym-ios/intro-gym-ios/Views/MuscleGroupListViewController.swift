@@ -22,8 +22,20 @@ class MuscleGroupListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureView()
         createTable()
         setupLayout()
+    }
+    
+    private func configureView() {
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        
+        navigationItem.title = "Упражнения"
+        navigationController?.navigationBar.tintColor = .main
+        
+        view.backgroundColor = .background
     }
     
     private func createTable() {
@@ -38,13 +50,10 @@ class MuscleGroupListViewController: UIViewController {
     }
     
     private func setupLayout() {
-        view.backgroundColor = .background
-        navigationItem.title = "Упражнения"
-        navigationController?.navigationBar.tintColor = .main
         view.addSubview(listMuscleTableView)
         
         NSLayoutConstraint.activate([
-            listMuscleTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            listMuscleTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             listMuscleTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             listMuscleTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             listMuscleTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
