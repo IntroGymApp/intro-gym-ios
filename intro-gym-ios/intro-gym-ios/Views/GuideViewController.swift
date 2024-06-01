@@ -24,6 +24,16 @@ class GuideViewController: UIViewController {
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
         view.backgroundColor = .background
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .background
+        appearance.shadowColor = .clear
+        
+        navigationController?.navigationBar.standardAppearance = appearance
+        if #available(iOS 15.0, *) {
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        }
     }
     
     private func createTable() {
