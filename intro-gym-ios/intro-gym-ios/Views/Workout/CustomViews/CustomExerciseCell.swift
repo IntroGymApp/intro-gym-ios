@@ -9,7 +9,7 @@ import UIKit
 
 class CustomExerciseCell: UITableViewCell {
     
-    let excerciseLabel: UILabel = {
+    let exerciseLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
@@ -17,7 +17,7 @@ class CustomExerciseCell: UITableViewCell {
         return label
     }()
     
-    let excerciseInfoLabel: UILabel = {
+    let exerciseInfoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
@@ -25,7 +25,7 @@ class CustomExerciseCell: UITableViewCell {
         return label
     }()
     
-    let excerciseImage: UIImageView = {
+    let exerciseImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
@@ -44,19 +44,19 @@ class CustomExerciseCell: UITableViewCell {
     }
     
     private func setupLayout() {
-        contentView.addSubview(excerciseLabel)
-        contentView.addSubview(excerciseInfoLabel)
-        contentView.addSubview(excerciseImage)
+        contentView.addSubview(exerciseLabel)
+        contentView.addSubview(exerciseInfoLabel)
+        contentView.addSubview(exerciseImage)
         
         NSLayoutConstraint.activate([
-            excerciseImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            excerciseImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
+            exerciseImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            exerciseImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
             
-            excerciseLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            excerciseLabel.leadingAnchor.constraint(equalTo: excerciseImage.trailingAnchor, constant: 18),
+            exerciseLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            exerciseLabel.leadingAnchor.constraint(equalTo: exerciseImage.trailingAnchor, constant: 18),
             
-            excerciseInfoLabel.topAnchor.constraint(equalTo: excerciseLabel.bottomAnchor, constant: 3),
-            excerciseInfoLabel.leadingAnchor.constraint(equalTo: excerciseLabel.leadingAnchor)
+            exerciseInfoLabel.topAnchor.constraint(equalTo: exerciseLabel.bottomAnchor, constant: 3),
+            exerciseInfoLabel.leadingAnchor.constraint(equalTo: exerciseLabel.leadingAnchor)
         ])
         
         selectionStyle = .none
@@ -68,9 +68,9 @@ class CustomExerciseCell: UITableViewCell {
     }
     
     func configure(with title: String, approaches: Int, repetitions: Int, weight: Int, image: UIImage?) {
-        excerciseLabel.text = title
-        excerciseInfoLabel.text = "\(approaches)x\(repetitions)x\(weight) кг"
-        excerciseImage.image = image
+        exerciseLabel.text = title
+        exerciseInfoLabel.text = "\(approaches)x\(repetitions)x\(weight) кг"
+        exerciseImage.image = image
     }
     
 }

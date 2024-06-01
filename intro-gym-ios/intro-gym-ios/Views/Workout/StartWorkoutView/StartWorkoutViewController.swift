@@ -93,7 +93,7 @@ extension StartWorkoutViewController: UITableViewDelegate, UITableViewDataSource
                        approaches: 3,
                        repetitions: 6,
                        weight: 80,
-                       image: UIImage(named: "ExcerciseExample"))
+                       image: UIImage(named: "ExerciseExample"))
         
         return cell
     }

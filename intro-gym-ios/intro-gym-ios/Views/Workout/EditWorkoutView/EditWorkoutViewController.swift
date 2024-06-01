@@ -118,7 +118,7 @@ extension EditWorkoutViewController: UITableViewDelegate, UITableViewDataSource 
                        approaches: 3,
                        repetitions: 6,
                        weight: 80,
-                       image: UIImage(named: "ExcerciseExample"))
+                       image: UIImage(named: "ExerciseExample"))
         
         return cell
     }
@@ -128,9 +128,9 @@ extension EditWorkoutViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let editExcerciseVC = EditExcerciseViewController()
-        editExcerciseVC.modalPresentationStyle = .pageSheet
-        present(editExcerciseVC, animated: true)
+        let editExerciseVC = EditExerciseViewController()
+        editExerciseVC.modalPresentationStyle = .pageSheet
+        present(editExerciseVC, animated: true)
     }
     
 }

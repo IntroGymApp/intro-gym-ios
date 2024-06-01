@@ -1,5 +1,5 @@
 //
-//  EditExcerciseViewController.swift
+//  EditExerciseViewController.swift
 //  intro-gym-ios
 //
 //  Created by Дывак Максим on 23.05.2024.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-class EditExcerciseViewController: UIViewController {
+class EditExerciseViewController: UIViewController {
     
     private var pickerView: UIPickerView!
-    private let saveExcerciseButton = Factory.createButton(title: "Сохранить", type: .fill)
-    private let excerciseComment = Factory.createHeaderWithField(header: "Комментарий", fieldPlaceholder: "Ваш комментарий...")
+    private let saveExerciseButton = Factory.createButton(title: "Сохранить", type: .fill)
+    private let exerciseComment = Factory.createHeaderWithField(header: "Комментарий", fieldPlaceholder: "Ваш комментарий...")
     private let approachesLabel = Factory.createTitleForPickerComponent(text: "Подходов")
     private let repetitionsLabel = Factory.createTitleForPickerComponent(text: "Повторений")
     private let weightLabel = Factory.createTitleForPickerComponent(text: "Вес")
@@ -25,7 +25,7 @@ class EditExcerciseViewController: UIViewController {
         return label
     }()
     
-    private lazy var excerciseInfoButton: UIButton = {
+    private lazy var exerciseInfoButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "info"), for: .normal)
@@ -64,11 +64,11 @@ class EditExcerciseViewController: UIViewController {
     private func setupLayout() {
         view.backgroundColor = .background
         view.addSubview(pageTitle)
-        view.addSubview(excerciseInfoButton)
+        view.addSubview(exerciseInfoButton)
         view.addSubview(stack)
         view.addSubview(pickerView)
-        view.addSubview(excerciseComment)
-        view.addSubview(saveExcerciseButton)
+        view.addSubview(exerciseComment)
+        view.addSubview(saveExerciseButton)
         
         stack.addArrangedSubview(approachesLabel)
         stack.addArrangedSubview(repetitionsLabel)
@@ -78,10 +78,10 @@ class EditExcerciseViewController: UIViewController {
             pageTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             pageTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            excerciseInfoButton.centerYAnchor.constraint(equalTo: pageTitle.centerYAnchor),
-            excerciseInfoButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            excerciseInfoButton.widthAnchor.constraint(equalToConstant: 32),
-            excerciseInfoButton.heightAnchor.constraint(equalToConstant: 32),
+            exerciseInfoButton.centerYAnchor.constraint(equalTo: pageTitle.centerYAnchor),
+            exerciseInfoButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            exerciseInfoButton.widthAnchor.constraint(equalToConstant: 32),
+            exerciseInfoButton.heightAnchor.constraint(equalToConstant: 32),
             
             stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 120),
             stack.leadingAnchor.constraint(equalTo: pickerView.leadingAnchor, constant: 30),
@@ -90,19 +90,19 @@ class EditExcerciseViewController: UIViewController {
             pickerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             pickerView.topAnchor.constraint(equalTo: stack.topAnchor, constant: 20),
             
-            saveExcerciseButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            saveExcerciseButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            saveExcerciseButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            saveExerciseButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            saveExerciseButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            saveExerciseButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
-            excerciseComment.topAnchor.constraint(equalTo: pickerView.bottomAnchor, constant: 30),
-            excerciseComment.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            excerciseComment.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            exerciseComment.topAnchor.constraint(equalTo: pickerView.bottomAnchor, constant: 30),
+            exerciseComment.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            exerciseComment.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
     }
 
 }
 
-extension EditExcerciseViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension EditExerciseViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 3
