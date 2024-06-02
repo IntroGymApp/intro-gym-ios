@@ -10,6 +10,7 @@ import UIKit
 class MainViewController: UIViewController {
     
     private var workoutsTableView: UITableView!
+    private let weeklyCalendarView = WeeklyCalendarView()
     
     private lazy var welcomeLabel: UILabel = {
         let label = UILabel()
@@ -62,13 +63,21 @@ class MainViewController: UIViewController {
         navigationItem.backBarButtonItem = backItem
         
         view.backgroundColor = .background
+        view.addSubview(weeklyCalendarView)
         view.addSubview(welcomeLabel)
         view.addSubview(welcomeBackUserLabel)
         view.addSubview(addWorkoutButton)
         view.addSubview(workoutsTableView)
         
+        weeklyCalendarView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
-            welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            weeklyCalendarView.topAnchor.constraint(equalTo: view.topAnchor),
+            weeklyCalendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            weeklyCalendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            weeklyCalendarView.heightAnchor.constraint(equalToConstant: 210),
+            
+            welcomeLabel.topAnchor.constraint(equalTo: weeklyCalendarView.bottomAnchor, constant: 20),
             welcomeLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             
             welcomeBackUserLabel.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor),

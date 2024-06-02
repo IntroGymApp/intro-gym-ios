@@ -17,6 +17,7 @@
 		856D3F9D2BFE0C1B00D8326E /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856D3F9C2BFE0C1B00D8326E /* Factory.swift */; };
 		857583FA2BFB4AC400267D2E /* SelectWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857583F92BFB4AC400267D2E /* SelectWorkoutViewController.swift */; };
 		857583FD2BFB559600267D2E /* CustomWorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857583FC2BFB559600267D2E /* CustomWorkoutCell.swift */; };
+		85A515E42C0B5762005418AF /* WeeklyCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A515E32C0B5762005418AF /* WeeklyCalendarView.swift */; };
 		85B0E16A2BEB1ED3004D0BE6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B0E1692BEB1ED3004D0BE6 /* AppDelegate.swift */; };
 		85B0E16C2BEB1ED3004D0BE6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B0E16B2BEB1ED3004D0BE6 /* SceneDelegate.swift */; };
 		85B0E16E2BEB1ED3004D0BE6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B0E16D2BEB1ED3004D0BE6 /* MainViewController.swift */; };
@@ -44,6 +45,7 @@
 		856D3F9C2BFE0C1B00D8326E /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		857583F92BFB4AC400267D2E /* SelectWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkoutViewController.swift; sourceTree = "<group>"; };
 		857583FC2BFB559600267D2E /* CustomWorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWorkoutCell.swift; sourceTree = "<group>"; };
+		85A515E32C0B5762005418AF /* WeeklyCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalendarView.swift; sourceTree = "<group>"; };
 		85B0E1662BEB1ED3004D0BE6 /* intro-gym-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "intro-gym-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85B0E1692BEB1ED3004D0BE6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85B0E16B2BEB1ED3004D0BE6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 			children = (
 				85B0E16D2BEB1ED3004D0BE6 /* MainViewController.swift */,
 				85B0E1872BEB2CC4004D0BE6 /* TabBarController.swift */,
+				85A515E32C0B5762005418AF /* WeeklyCalendarView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				85C1899A2C05FE97002014CA /* ExerciseDescriptionViewController.swift in Sources */,
 				85B0E18E2BEB2F17004D0BE6 /* StatsViewController.swift in Sources */,
 				856D3F6E2BFCA41000D8326E /* CustomExerciseCell.swift in Sources */,
+				85A515E42C0B5762005418AF /* WeeklyCalendarView.swift in Sources */,
 				85B0E16E2BEB1ED3004D0BE6 /* MainViewController.swift in Sources */,
 				856D3F9B2BFDF86B00D8326E /* EditWorkoutViewController.swift in Sources */,
 				857583FA2BFB4AC400267D2E /* SelectWorkoutViewController.swift in Sources */,

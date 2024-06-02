@@ -108,7 +108,7 @@ extension WorkoutViewController: UITableViewDelegate, UITableViewDataSource {
         
         let arrowImage = UIImageView()
         arrowImage.translatesAutoresizingMaskIntoConstraints = false
-        arrowImage.image = UIImage(named: "arrow")
+        arrowImage.image = UIImage(named: "arrow-right")
         arrowImage.tintColor = .main
         cell.contentView.addSubview(arrowImage)
         
