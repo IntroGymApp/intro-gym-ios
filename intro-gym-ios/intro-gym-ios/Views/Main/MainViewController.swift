@@ -10,7 +10,8 @@ import UIKit
 class MainViewController: UIViewController {
     
     private var workoutsTableView: UITableView!
-    private let weeklyCalendarView = WeeklyCalendarView()
+    private var weeklyCalendarView: WeeklyCalendarView!
+    private var calendarPresenter: WeeklyCalendarPresenter!
     
     private lazy var welcomeLabel: UILabel = {
         let label = UILabel()
@@ -42,6 +43,12 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        weeklyCalendarView = WeeklyCalendarView()
+        weeklyCalendarView.translatesAutoresizingMaskIntoConstraints = false
+        
+        calendarPresenter = WeeklyCalendarPresenter(delegate: weeklyCalendarView)
+        weeklyCalendarView.delegate = calendarPresenter
+        
         createTable()
         setupLayout()
     }
@@ -68,8 +75,6 @@ class MainViewController: UIViewController {
         view.addSubview(welcomeBackUserLabel)
         view.addSubview(addWorkoutButton)
         view.addSubview(workoutsTableView)
-        
-        weeklyCalendarView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             weeklyCalendarView.topAnchor.constraint(equalTo: view.topAnchor),

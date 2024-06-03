@@ -18,6 +18,7 @@
 		857583FA2BFB4AC400267D2E /* SelectWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857583F92BFB4AC400267D2E /* SelectWorkoutViewController.swift */; };
 		857583FD2BFB559600267D2E /* CustomWorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857583FC2BFB559600267D2E /* CustomWorkoutCell.swift */; };
 		85A515E42C0B5762005418AF /* WeeklyCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A515E32C0B5762005418AF /* WeeklyCalendarView.swift */; };
+		85A515EA2C0C9F24005418AF /* WeeklyCalendarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A515E92C0C9F24005418AF /* WeeklyCalendarPresenter.swift */; };
 		85B0E16A2BEB1ED3004D0BE6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B0E1692BEB1ED3004D0BE6 /* AppDelegate.swift */; };
 		85B0E16C2BEB1ED3004D0BE6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B0E16B2BEB1ED3004D0BE6 /* SceneDelegate.swift */; };
 		85B0E16E2BEB1ED3004D0BE6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B0E16D2BEB1ED3004D0BE6 /* MainViewController.swift */; };
@@ -46,6 +47,7 @@
 		857583F92BFB4AC400267D2E /* SelectWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkoutViewController.swift; sourceTree = "<group>"; };
 		857583FC2BFB559600267D2E /* CustomWorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWorkoutCell.swift; sourceTree = "<group>"; };
 		85A515E32C0B5762005418AF /* WeeklyCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalendarView.swift; sourceTree = "<group>"; };
+		85A515E92C0C9F24005418AF /* WeeklyCalendarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalendarPresenter.swift; sourceTree = "<group>"; };
 		85B0E1662BEB1ED3004D0BE6 /* intro-gym-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "intro-gym-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85B0E1692BEB1ED3004D0BE6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85B0E16B2BEB1ED3004D0BE6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 		85B0E1822BEB29F8004D0BE6 /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
+				85A515E92C0C9F24005418AF /* WeeklyCalendarPresenter.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				85B0E18A2BEB2E21004D0BE6 /* WorkoutViewController.swift in Sources */,
+				85A515EA2C0C9F24005418AF /* WeeklyCalendarPresenter.swift in Sources */,
 				85B0E1922BEB698C004D0BE6 /* UIColor+Extensions.swift in Sources */,
 				85B0E1742BEB1ED3004D0BE6 /* intro_gym_ios.xcdatamodeld in Sources */,
 				85B0E1902BEB2F4E004D0BE6 /* ProfileViewController.swift in Sources */,

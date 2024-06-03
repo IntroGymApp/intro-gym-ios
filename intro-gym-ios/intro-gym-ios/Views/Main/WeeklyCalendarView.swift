@@ -7,7 +7,15 @@
 
 import UIKit
 
+protocol WeeklyCalendarViewDelegate: AnyObject {
+    func didTapPrevWeek()
+    func didTapNextWeek()
+    func didSelectDay(at index: Int)
+}
+
 class WeeklyCalendarView: UIView {
+    
+    weak var delegate: WeeklyCalendarViewDelegate?
     
     private let prevButton = UIButton()
     private let nextButton = UIButton()
@@ -118,15 +126,38 @@ class WeeklyCalendarView: UIView {
     }
     
     @objc private func showPrevWeek() {
-        
+        delegate?.didTapPrevWeek()
     }
     
     @objc private func showNextWeek() {
-        
+        delegate?.didTapNextWeek()
     }
     
     @objc private func didTapDayButton(_ sender: UIButton) {
-        
+        delegate?.didSelectDay(at: sender.tag)
+    }
+    
+}
+
+extension WeeklyCalendarView: WeeklyCalendarPresenterDelegate {
+    
+    func updateMonthLabel(with text: String) {
+        monthLabel.text = text
+    }
+    
+    func updateDayButtonTitles(with titles: [String]) {
+        for (index, title) in titles.enumerated() {
+            dayButtons[index].setTitle(title, for: .normal)
+        }
+    }
+    
+    func updateSelectedDayButton(at index: Int) {
+        dayButtons.forEach {
+            $0.backgroundColor = .clear
+            $0.setTitleColor(.main, for: .normal)
+        }
+        dayButtons[index].backgroundColor = .accent
+        dayButtons[index].setTitleColor(.background, for: .normal)
     }
     
 }
