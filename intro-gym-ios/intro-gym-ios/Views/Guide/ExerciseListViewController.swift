@@ -9,7 +9,12 @@ import UIKit
 
 class ExerciseListViewController: UIViewController {
     
+    weak var delegate: ExerciseDescriptionViewControllerDelegate?
+    var exercisesInfo: [ExerciseInfoEntity] = []
+    var exericiseGroup = ""
+    
     private var listExercisesTableView: UITableView!
+    var shouldShowAddButton = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +22,12 @@ class ExerciseListViewController: UIViewController {
         configureView()
         createTable()
         setupLayout()
+        getAllExercisesInfo()
+    }
+    
+    private func getAllExercisesInfo() {
+        exercisesInfo = CoreDataManager.shared.getAllExercisesInfoByGroup(group: exericiseGroup)
+        listExercisesTableView.reloadData()
     }
     
     private func configureView() {
@@ -24,7 +35,7 @@ class ExerciseListViewController: UIViewController {
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
         
-        navigationItem.title = "Грудь"
+        navigationItem.title = exericiseGroup
         
         view.backgroundColor = .background
     }
@@ -59,7 +70,7 @@ extension ExerciseListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return exercisesInfo.count
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -68,9 +79,15 @@ extension ExerciseListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExcersiceCell", for: indexPath) as! CustomWorkoutCell
-        cell.configure(with: "Жим штанги лежа", descr: nil, examplesCount: nil, backgroundImage: nil)
         
-        let exerciseGroupImage = UIImageView(image: UIImage(named: "ExerciseSmallExample"))
+        let exerciseInfo = exercisesInfo[indexPath.section]
+        
+        cell.configure(with: exerciseInfo.name,
+                       descr: nil,
+                       examplesCount: nil,
+                       backgroundImage: nil)
+        
+        let exerciseGroupImage = UIImageView(image: UIImage(named: exerciseInfo.img ?? ""))
         exerciseGroupImage.translatesAutoresizingMaskIntoConstraints = false
         exerciseGroupImage.layer.cornerRadius = 6
         exerciseGroupImage.clipsToBounds = true
@@ -90,6 +107,7 @@ extension ExerciseListViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.workoutTitle.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
             cell.workoutTitle.leadingAnchor.constraint(equalTo: exerciseGroupImage.trailingAnchor, constant: 18),
+            cell.workoutTitle.widthAnchor.constraint(equalToConstant: 200),
             
             cell.examplesCount.topAnchor.constraint(equalTo: cell.workoutTitle.bottomAnchor, constant: 3),
             cell.examplesCount.leadingAnchor.constraint(equalTo: cell.workoutTitle.leadingAnchor),
@@ -109,6 +127,9 @@ extension ExerciseListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let exerciseDescriptionVC = ExerciseDescriptionViewController()
+        exerciseDescriptionVC.shouldShowAddButton = shouldShowAddButton
+        exerciseDescriptionVC.delegate = delegate
+        exerciseDescriptionVC.exerciseInfo = exercisesInfo[indexPath.section]
         navigationController?.pushViewController(exerciseDescriptionVC, animated: true)
     }
     

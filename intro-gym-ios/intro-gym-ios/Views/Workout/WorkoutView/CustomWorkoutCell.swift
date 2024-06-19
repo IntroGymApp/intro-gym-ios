@@ -67,10 +67,18 @@ class CustomWorkoutCell: UITableViewCell {
         clipsToBounds = true
     }
     
-    func configure(with title: String, descr: String?, examplesCount: String?, backgroundImage: UIImage?) {
+    func configure(with title: String, descr: String?, examplesCount: Int?, backgroundImage: UIImage?) {
         workoutTitle.text = title
         workoutDescr.text = descr
-        self.examplesCount.text = examplesCount
+        
+        if examplesCount != nil {
+            self.examplesCount.text = "Упражнений: \(examplesCount ?? 0)"
+            self.examplesCount.isHidden = false
+        } else {
+            self.examplesCount.text = ""
+            self.examplesCount.isHidden = true
+        }
+        
         backgroundImageCell.image = backgroundImage
     }
     

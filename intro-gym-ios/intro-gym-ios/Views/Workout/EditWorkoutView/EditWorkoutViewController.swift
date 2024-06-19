@@ -9,10 +9,15 @@ import UIKit
 
 class EditWorkoutViewController: UIViewController {
     
+    var exercises: [ExerciseEntity] = []
+    var exerciseSelect: ExerciseEntity?
+    var exerciseInfo: ExerciseInfoEntity?
+    var workout: WorkoutEntity?
+    
     private var excersicesTableView: UITableView!
     
-    private let workoutNameField = Factory.createHeaderWithField(header: "Название тренировки", fieldPlaceholder: "Введите название...")
-    private let workoutDescriptionField = Factory.createHeaderWithField(header: "Описание тренировки", fieldPlaceholder: "Введите описание...")
+    private let workoutNameField = Factory.createHeaderWithField(header: "Название тренировки", fieldPlaceholder: "Введите название...", fieldTag: 1)
+    private let workoutDescriptionField = Factory.createHeaderWithField(header: "Описание тренировки", fieldPlaceholder: "Введите описание...", fieldTag: 2)
     private let tableViewHeader = Factory.createHeader(text: "Ваши упражнения")
     private let addExcersiceButton = Factory.createButton(title: "Добавить упражнение", type: .stroke)
     private let saveWorkoutButton = Factory.createButton(title: "Сохранить", type: .fill)
@@ -39,10 +44,43 @@ class EditWorkoutViewController: UIViewController {
         viewConfigure()
         createTable()
         setupLayout()
+        getExerciseInfo()
+        hideKeyboardWhenTappedAround()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getAllExercises()
+    }
+    
+    private func getExerciseInfo() {
+        
+    }
+    
+    private func getAllExercises() {
+        guard let workout = workout else { return }
+        if let fetchedExercises = CoreDataManager.shared.getAllExersicesByWorkoutId(workoutId: workout.id) {
+            exercises = fetchedExercises
+            excersicesTableView.reloadData()
+        }
+    }
+    
+    private func hideKeyboardWhenTappedAround() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
     
     private func viewConfigure() {
-        navigationItem.title = "Тренировка"
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        
+        if workout == nil {
+            navigationItem.title = "Создание тренировки"
+        } else {
+            navigationItem.title = workout?.name
+        }
         navigationController?.navigationBar.tintColor = .main
         view.backgroundColor = .background
     }
@@ -59,11 +97,21 @@ class EditWorkoutViewController: UIViewController {
     }
     
     private func setupLayout() {
+        if workout != nil {
+            let name = workoutNameField.viewWithTag(1) as? UITextField
+            name?.text = workout?.name
+            let descr = workoutDescriptionField.viewWithTag(2) as? UITextField
+            descr?.text = workout?.descr
+        }
+        
         stack.addArrangedSubview(workoutNameField)
         stack.addArrangedSubview(workoutDescriptionField)
         
         stackButtons.addArrangedSubview(addExcersiceButton)
         stackButtons.addArrangedSubview(saveWorkoutButton)
+        
+        addExcersiceButton.addTarget(self, action: #selector(didTapAddExercise), for: .touchUpInside)
+        saveWorkoutButton.addTarget(self, action: #selector(didTapSave), for: .touchUpInside)
         
         view.addSubview(stack)
         view.addSubview(stackButtons)
@@ -95,7 +143,64 @@ class EditWorkoutViewController: UIViewController {
         ])
         
     }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    @objc private func didTapSave() {
+        guard let nameTextField = workoutNameField.viewWithTag(1) as? UITextField,
+              let name = nameTextField.text, !name.isEmpty,
+              let descrTextField = workoutDescriptionField.viewWithTag(2) as? UITextField,
+              let descr = descrTextField.text else {
+            print("Не удалось сохранить тренировку")
+            return
+        }
+        
+        guard let workout = workout else {
+            CoreDataManager.shared.createWorkout(name: name, descr: descr, exercises: exercises)
+            navigationController?.popViewController(animated: true)
+            print("Тренировка создана")
+            return
+        }
+        
+        CoreDataManager.shared.updateWorkoutById(id: workout.id, newName: name, newDescr: descr, newExercises: exercises)
+        print("Тренировка обновлена")
+        
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func didTapAddExercise() {
+        let muscleGroupListVC = MuscleGroupListViewController()
+        muscleGroupListVC.hidesBottomBarWhenPushed = true
+        muscleGroupListVC.shouldShowAddButton = true
+        muscleGroupListVC.delegate = self
+        navigationController?.pushViewController(muscleGroupListVC, animated: true)
+    }
 
+}
+
+extension EditWorkoutViewController: ExerciseDescriptionViewControllerDelegate {
+    func getWorkoutId() -> Int64 {
+        print("EditWorkout delegate method. Workout id: ", workout?.id ?? 0)
+        return workout?.id ?? 0
+    }
+    
+}
+
+extension EditWorkoutViewController: EditExerciseViewControllerDelegate {
+    func getExercise() -> ExerciseEntity? {
+        guard let exerciseSelect = exerciseSelect else { return nil }
+        return exerciseSelect
+    }
+    
+    func didUpdateExercise(_ exercise: ExerciseEntity) {
+        if let index = exercises.firstIndex(where: { $0.id == exercise.id }) {
+            exercises[index] = exercise
+            excersicesTableView.reloadData()
+        }
+    }
+        
 }
 
 extension EditWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
@@ -105,7 +210,7 @@ extension EditWorkoutViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return exercises.count
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -114,11 +219,19 @@ extension EditWorkoutViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExcersiceCell", for: indexPath) as! CustomExerciseCell
-        cell.configure(with: "Становая тяга",
-                       approaches: 3,
-                       repetitions: 6,
-                       weight: 80,
-                       image: UIImage(named: "ExerciseExample"))
+        
+        let exercise = exercises[indexPath.section]
+
+        var exerciseImage = ""
+        if let fetchedExerciseInfo = CoreDataManager.shared.getExerciseInfoById(id: exercises[indexPath.section].exerciseInfoId) {
+            exerciseImage = fetchedExerciseInfo.img ?? ""
+        }
+        
+        cell.configure(with: exercise.name,
+                       approaches: Int(exercise.sets),
+                       repetitions: Int(exercise.reps),
+                       weight: Int(exercise.weight),
+                       image: UIImage(named: exerciseImage))
         
         return cell
     }
@@ -130,7 +243,22 @@ extension EditWorkoutViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let editExerciseVC = EditExerciseViewController()
         editExerciseVC.modalPresentationStyle = .pageSheet
+        editExerciseVC.delegate = self
+        exerciseSelect = exercises[indexPath.section]
         present(editExerciseVC, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { action, view, complectionHandler in
+            let exerciseToDelete = self.exercises[indexPath.section]
+            CoreDataManager.shared.deleteExercise(exercise: exerciseToDelete)
+            self.getAllExercises()
+            complectionHandler(true)
+        }
+        deleteAction.backgroundColor = .red
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
     }
     
 }

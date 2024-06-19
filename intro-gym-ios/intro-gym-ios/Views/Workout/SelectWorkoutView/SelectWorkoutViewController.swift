@@ -9,6 +9,11 @@ import UIKit
 
 class SelectWorkoutViewController: UIViewController {
     
+    var workouts: [WorkoutEntity] = []
+    var selectDay: Date?
+    
+    weak var delegate: MainViewControllerDelegate?
+    
     private var workoutsTableView: UITableView!
     
     private lazy var tableHeader: UILabel = {
@@ -26,11 +31,21 @@ class SelectWorkoutViewController: UIViewController {
         navigationConfigure()
         createTable()
         setupLayout()
+        
+        print(selectDay ?? "date is nil")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNavigationBarAppearance()
+        getAllWorkouts()
+    }
+    
+    private func getAllWorkouts() {
+        if let fetchedWorkouts = CoreDataManager.shared.getAllWorkouts() {
+            workouts = fetchedWorkouts.filter { $0.date == nil }
+            workoutsTableView.reloadData()
+        }
     }
     
     private func setupNavigationBarAppearance() {
@@ -91,6 +106,13 @@ class SelectWorkoutViewController: UIViewController {
 
 }
 
+extension SelectWorkoutViewController: MainViewControllerDelegate {
+    func addDayToWorkout(day: Date) {
+        selectDay = day
+    }
+    
+}
+
 extension SelectWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -98,7 +120,7 @@ extension SelectWorkoutViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return workouts.count
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -107,9 +129,13 @@ extension SelectWorkoutViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = workoutsTableView.dequeueReusableCell(withIdentifier: "WorkoutCell", for: indexPath) as! CustomWorkoutCell
-        cell.configure(with: "Тренировка \(indexPath.section + 1)",
+        
+        let workout = workouts[indexPath.section]
+        let exerciseCount = (workout.exercise as? Set<ExerciseEntity>)?.count ?? 0
+        
+        cell.configure(with: workout.name,
                        descr: nil,
-                       examplesCount: "Упражнений: 2",
+                       examplesCount: exerciseCount,
                        backgroundImage: nil)
         
         let plusImage = UIImageView(image: UIImage(named: "plus"))
@@ -138,6 +164,16 @@ extension SelectWorkoutViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedWorkout = workouts[indexPath.section]
+        if let selectDay = selectDay {
+            CoreDataManager.shared.addWorkoutAtDay(workout: selectedWorkout, date: selectDay)
+            navigationController?.popViewController(animated: true)
+        } else {
+            print("selectDay is nil")
+        }
     }
     
 }

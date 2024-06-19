@@ -13,9 +13,14 @@ protocol WeeklyCalendarViewDelegate: AnyObject {
     func didSelectDay(at index: Int)
 }
 
+protocol WeeklyCalendarViewDayDelegate: AnyObject {
+    func didSelectDay(day: Date)
+}
+
 class WeeklyCalendarView: UIView {
     
     weak var delegate: WeeklyCalendarViewDelegate?
+    weak var dayDelegate: WeeklyCalendarViewDayDelegate?
     
     private let prevButton = UIButton()
     private let nextButton = UIButton()
@@ -135,6 +140,13 @@ class WeeklyCalendarView: UIView {
     
     @objc private func didTapDayButton(_ sender: UIButton) {
         delegate?.didSelectDay(at: sender.tag)
+    }
+    
+}
+
+extension WeeklyCalendarView: WeeklyCalendarViewDayDelegate {
+    func didSelectDay(day: Date) {
+        dayDelegate?.didSelectDay(day: day)
     }
     
 }

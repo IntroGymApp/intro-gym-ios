@@ -7,13 +7,22 @@
 
 import UIKit
 
+protocol StartExerciseViewControllerDelegate: AnyObject {
+    func getExerciseId() -> Int64
+    func getExerciseImg() -> String
+}
+
 class StartExerciseViewController: UIViewController {
     
-    private var exerciseNoteTableView: UITableView!
+    var exercise = ExerciseEntity()
+    var exerciseInfoImg = ""
+    var exerciseHistory: [ExerciseHistoryEntity] = []
+    weak var delegate: StartExerciseViewControllerDelegate?
+    var reps = -1
+    var weight = -1
     
-    private var exerciseDescription = Factory.createHeaderWithText(header: "Ваш комментарий", text: "Какой-то комментарий пользователя. Какой-то комментарий пользователя. Какой-то комментарий пользователя. Какой-то комментарий пользователя. Какой-то комментарий пользователя. Какой-то комментарий пользователя")
-    private var planView = Factory.createPlanView(approachesValue: 5, approachesValueDone: 0, repetitionsValue: 6, weightValue: 60)
-    private var exerciseNoteFields = Factory.createExerciseNoteFileds()
+    private var exerciseNoteTableView: UITableView!
+    private var exerciseNoteFields: UIView!
     
     private lazy var scrollView: UIScrollView = {
         let scroll = UIScrollView()
@@ -30,7 +39,6 @@ class StartExerciseViewController: UIViewController {
     private lazy var exerciseImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.image = UIImage(named: "ExerciseLargeExample")
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
         image.layer.cornerRadius = 10
@@ -39,9 +47,33 @@ class StartExerciseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        getExercise()
         createTable()
+        getExerciseHistory()
         setupLayout()
+        hideKeyboardWhenTappedAround()
+    }
+    
+    private func getExercise() {
+        guard let exerciseId = delegate?.getExerciseId() else { return }
+        if let fetchedExercise = CoreDataManager.shared.getExerciseById(id: exerciseId) {
+            exercise = fetchedExercise
+        }
+    }
+    
+    private func getExerciseHistory() {
+        if let fetchedExerciseHistory = CoreDataManager.shared.getAllExerciseHistoryByExerciseId(exerciseId: exercise.id) {
+            exerciseHistory = fetchedExerciseHistory
+            exerciseNoteTableView.reloadData()
+//            updateTableHeight()
+        }
+    }
+    
+    private func hideKeyboardWhenTappedAround() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
     
     private func createTable() {
@@ -57,8 +89,18 @@ class StartExerciseViewController: UIViewController {
     }
     
     private func setupLayout() {
+        exerciseNoteFields = Factory.createExerciseNoteFileds(repsFieldTag: 1, weightFieldTag: 2, buttonTag: 3)
+        exerciseInfoImg = delegate?.getExerciseImg() ?? ""
+        exerciseImage.image = UIImage(named: "large-" + exerciseInfoImg)
+        
+        let exerciseDescription = Factory.createHeaderWithText(header: "Ваш комментарий", text: exercise.note ?? "nil")
+        let planView = Factory.createPlanView(approachesValue: Int(exercise.sets), approachesValueDone: exerciseHistory.count, repetitionsValue: Int(exercise.reps), weightValue: Int(exercise.weight))
+        
+        let addButton = exerciseNoteFields.viewWithTag(3) as? UIButton
+        addButton?.addTarget(self, action: #selector(addSet), for: .touchUpInside)
+        
         view.backgroundColor = .background
-        navigationItem.title = "Становая тяга"
+        navigationItem.title = exercise.name
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "info"), style: .done, target: self, action: #selector(showInfo))
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -101,8 +143,39 @@ class StartExerciseViewController: UIViewController {
             exerciseNoteTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             exerciseNoteTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             exerciseNoteTableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
-            exerciseNoteTableView.heightAnchor.constraint(equalToConstant: (exerciseNoteTableView.rowHeight + 10) * CGFloat(exerciseNoteTableView.numberOfSections))
+            exerciseNoteTableView.heightAnchor.constraint(equalToConstant: (exerciseNoteTableView.rowHeight + 10) * CGFloat(exerciseHistory.count))
         ])
+    }
+    
+    private func updateTableHeight() {
+        let height = (exerciseNoteTableView.rowHeight + 10) * CGFloat(exerciseHistory.count)
+        exerciseNoteTableView.constraints.forEach { constraint in
+            if constraint.firstAttribute == .height {
+                constraint.constant = height
+            }
+        }
+        exerciseNoteTableView.layoutIfNeeded()
+    }
+    
+    @objc private func addSet() {
+        guard let repsField = exerciseNoteFields.viewWithTag(1) as? UITextField,
+              let repsText = repsField.text, !repsText.isEmpty,
+              let weightField = exerciseNoteFields.viewWithTag(2) as? UITextField,
+              let weightText = weightField.text, !weightText.isEmpty else {
+            return
+        }
+        
+        reps = Int(repsText) ?? -1
+        weight = Int(weightText) ?? -1
+        
+        CoreDataManager.shared.addExerciseHistoryByExerciseId(exerciseId: exercise.id, reps: Int64(reps), weight: Int64(weight))
+        
+        getExerciseHistory()
+        updateTableHeight()
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     @objc private func showInfo() {
@@ -117,7 +190,7 @@ extension StartExerciseViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return exerciseHistory.count
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -126,7 +199,10 @@ extension StartExerciseViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseNote", for: indexPath) as! ExerciseNoteTableViewCell
-        cell.configure(count: indexPath.section + 1, repeats: 5, weight: 60)
+        let exerciseHistoryNote = exerciseHistory[indexPath.section]
+        
+        cell.configure(count: indexPath.section + 1, repeats: Int(exerciseHistoryNote.reps), weight: Int(exerciseHistoryNote.weight))
+        
         return cell
     }
     

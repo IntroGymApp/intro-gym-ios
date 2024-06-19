@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23C71" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="ArticleEntity" representedClassName="ArticleEntity" syncable="YES">
+        <attribute name="descr" attributeType="String"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="img" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+    </entity>
+    <entity name="ExerciseEntity" representedClassName="ExerciseEntity" syncable="YES">
+        <attribute name="exerciseInfoId" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="reps" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sets" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="weight" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="workoutId" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="exerciseHistory" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ExerciseHistoryEntity" inverseName="exercise" inverseEntity="ExerciseHistoryEntity"/>
+        <relationship name="workout" maxCount="1" deletionRule="Nullify" destinationEntity="WorkoutEntity" inverseName="exercise" inverseEntity="WorkoutEntity"/>
+    </entity>
+    <entity name="ExerciseHistoryEntity" representedClassName="ExerciseHistoryEntity" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="exerciseId" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="reps" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="weight" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ExerciseEntity" inverseName="exerciseHistory" inverseEntity="ExerciseEntity"/>
+    </entity>
+    <entity name="ExerciseInfoEntity" representedClassName="ExerciseInfoEntity" syncable="YES">
+        <attribute name="advices" attributeType="String"/>
+        <attribute name="descr" attributeType="String"/>
+        <attribute name="execution" attributeType="String"/>
+        <attribute name="group" attributeType="String"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="img" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="preparation" attributeType="String"/>
+    </entity>
+    <entity name="MotivationInfoEntity" representedClassName="MotivationInfoEntity" syncable="YES">
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="text" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+    </entity>
+    <entity name="WorkoutEntity" representedClassName="WorkoutEntity" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="descr" optional="YES" attributeType="String"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <relationship name="exercise" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ExerciseEntity" inverseName="workout" inverseEntity="ExerciseEntity"/>
+    </entity>
+</model>

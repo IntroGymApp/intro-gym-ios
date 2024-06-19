@@ -16,6 +16,8 @@ protocol WeeklyCalendarPresenterDelegate: AnyObject {
 class WeeklyCalendarPresenter {
     
     weak var delegate: WeeklyCalendarPresenterDelegate?
+    weak var viewDelegate: WeeklyCalendarViewDayDelegate?
+    var selectDay: Date?
     
     private var currentWeekStartDate: Date = Date() {
         didSet {
@@ -26,8 +28,9 @@ class WeeklyCalendarPresenter {
     private var selectedDayIndex: Int = 0
     private var isSelectButton = false
     
-    init(delegate: WeeklyCalendarPresenterDelegate) {
+    init(delegate: WeeklyCalendarPresenterDelegate, viewDelegate: WeeklyCalendarViewDayDelegate) {
         self.delegate = delegate
+        self.viewDelegate = viewDelegate
         updateWeekDays()
     }
     
@@ -62,7 +65,9 @@ class WeeklyCalendarPresenter {
     }
     
     private func updateSelectDay() {
+        selectDay = datesOfWeek[selectedDayIndex]
         delegate?.updateSelectedDayButton(at: selectedDayIndex)
+        viewDelegate?.didSelectDay(day: selectDay ?? Date())
         
         let monthFormatter = DateFormatter()
         monthFormatter.locale = Locale(identifier: "ru_RU")

@@ -7,7 +7,21 @@
 
 import UIKit
 
+protocol MainViewControllerDelegate: AnyObject {
+    func addDayToWorkout(day: Date)
+}
+
 class MainViewController: UIViewController {
+    
+    weak var delegate: MainViewControllerDelegate?
+    var workouts: [WorkoutEntity] = []
+    var selectDay: Date? {
+        didSet {
+            if workoutsTableView != nil {
+                getAllWorkouts()
+            }
+        }
+    }
     
     private var workoutsTableView: UITableView!
     private var weeklyCalendarView: WeeklyCalendarView!
@@ -25,7 +39,7 @@ class MainViewController: UIViewController {
     private lazy var welcomeBackUserLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "С возвращением, User.name!"
+        label.text = "С возвращением, Максим!"
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         label.textColor = .main
         return label
@@ -45,12 +59,49 @@ class MainViewController: UIViewController {
         
         weeklyCalendarView = WeeklyCalendarView()
         weeklyCalendarView.translatesAutoresizingMaskIntoConstraints = false
+        weeklyCalendarView.dayDelegate = self
         
-        calendarPresenter = WeeklyCalendarPresenter(delegate: weeklyCalendarView)
+        calendarPresenter = WeeklyCalendarPresenter(delegate: weeklyCalendarView, viewDelegate: self)
         weeklyCalendarView.delegate = calendarPresenter
         
         createTable()
         setupLayout()
+        
+        filterWorkoutsByDate()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getAllWorkouts()
+    }
+    
+    private func getAllWorkouts() {
+        if let fetchedWorkouts = CoreDataManager.shared.getAllWorkouts() {
+            workouts = fetchedWorkouts
+            filterWorkoutsByDate()
+        }
+    }
+    
+    private func filterWorkoutsByDate() {
+        guard let selectedDate = selectDay else {
+            workoutsTableView.reloadData()
+            return
+        }
+        
+        // Логирование выбранной даты
+        print("Selected date: \(selectedDate)")
+        
+        workouts = workouts.filter { workout in
+            if let workoutDate = workout.date {
+                let calendar = Calendar.current
+                let sameDay = calendar.isDate(workoutDate, inSameDayAs: selectedDate)
+                print("Workout date: \(workoutDate), same day: \(sameDay)")
+                return sameDay
+            }
+            return false
+        }
+        
+        workoutsTableView.reloadData()
     }
     
     private func createTable() {
@@ -102,9 +153,22 @@ class MainViewController: UIViewController {
     
     @objc private func didTapAddWorkout() {
         let selectWorkoutVC = SelectWorkoutViewController()
+        selectWorkoutVC.selectDay = selectDay
         navigationController?.pushViewController(selectWorkoutVC, animated: true)
     }
 
+}
+
+extension MainViewController: WeeklyCalendarViewDayDelegate {
+    func didSelectDay(day: Date) {
+        selectDay = day
+    }
+}
+
+extension MainViewController: MainViewControllerDelegate {
+    func addDayToWorkout(day: Date) {
+        delegate?.addDayToWorkout(day: selectDay ?? Date())
+    }
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
@@ -113,7 +177,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return workouts.count
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -122,9 +186,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WorkoutCell", for: indexPath) as! CustomWorkoutCell
-        cell.configure(with: "Тренировка \(indexPath.section + 1)",
-                       descr: "Какое-то писание, которое пользователь сам написал",
-                       examplesCount: "Упражнений: 3",
+        
+        let workout = workouts[indexPath.section]
+        let exerciseCount = (workout.exercise as? Set<ExerciseEntity>)?.count ?? 0
+        
+        cell.configure(with: workout.name,
+                       descr: workout.descr,
+                       examplesCount: exerciseCount,
                        backgroundImage: UIImage(named: "CellWorkoutBackground"))
         
         NSLayoutConstraint.activate([
@@ -151,11 +219,22 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         return UIView()
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { action, view, complectionHandler in
+            let workoutToDelete = self.workouts[indexPath.section]
+            CoreDataManager.shared.deleteWorkout(workout: workoutToDelete)
+            self.getAllWorkouts()
+            complectionHandler(true)
+        }
+        deleteAction.backgroundColor = .red
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let startWorkoutVC = StartWorkoutViewController()
+        startWorkoutVC.workout = workouts[indexPath.section]
         navigationController?.pushViewController(startWorkoutVC, animated: true)
     }
-
-
 }
-

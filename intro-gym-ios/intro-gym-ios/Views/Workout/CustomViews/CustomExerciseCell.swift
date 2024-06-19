@@ -29,6 +29,7 @@ class CustomExerciseCell: UITableViewCell {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
+        image.layer.cornerRadius = 10
         image.clipsToBounds = true
         return image
     }()
@@ -50,6 +51,8 @@ class CustomExerciseCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             exerciseImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            exerciseImage.widthAnchor.constraint(equalToConstant: 58),
+            exerciseImage.heightAnchor.constraint(equalToConstant: 58),
             exerciseImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
             
             exerciseLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),

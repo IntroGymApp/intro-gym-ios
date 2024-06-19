@@ -7,11 +7,22 @@
 
 import UIKit
 
+protocol EditExerciseViewControllerDelegate: AnyObject {
+    func getExercise() -> ExerciseEntity?
+    func didUpdateExercise(_ exercise: ExerciseEntity)
+}
+
 class EditExerciseViewController: UIViewController {
+    
+    weak var delegate: EditExerciseViewControllerDelegate?
+    var exercise: ExerciseEntity?
+    var sets: Int64?
+    var reps: Int64?
+    var weight: Int64?
     
     private var pickerView: UIPickerView!
     private let saveExerciseButton = Factory.createButton(title: "Сохранить", type: .fill)
-    private let exerciseComment = Factory.createHeaderWithField(header: "Комментарий", fieldPlaceholder: "Ваш комментарий...")
+    private let exerciseComment = Factory.createHeaderWithField(header: "Комментарий", fieldPlaceholder: "Ваш комментарий...", fieldTag: 1)
     private let approachesLabel = Factory.createTitleForPickerComponent(text: "Подходов")
     private let repetitionsLabel = Factory.createTitleForPickerComponent(text: "Повторений")
     private let weightLabel = Factory.createTitleForPickerComponent(text: "Вес")
@@ -44,7 +55,8 @@ class EditExerciseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        exercise = delegate?.getExercise()
         createPickerView()
         setupLayout()
     }
@@ -56,12 +68,19 @@ class EditExerciseViewController: UIViewController {
         pickerView.dataSource = self
         
         // set default values
-        pickerView.selectRow(3, inComponent: 0, animated: true)
-        pickerView.selectRow(6, inComponent: 1, animated: true)
-        pickerView.selectRow(80, inComponent: 2, animated: true)
+        pickerView.selectRow(Int(exercise?.sets ?? 0), inComponent: 0, animated: true)
+        pickerView.selectRow(Int(exercise?.reps ?? 0), inComponent: 1, animated: true)
+        pickerView.selectRow(Int(exercise?.weight ?? 0), inComponent: 2, animated: true)
     }
     
     private func setupLayout() {
+        if exercise?.note != "nil" {
+            let exerciseComment = exerciseComment.viewWithTag(1) as? UITextField
+            exerciseComment?.text = exercise?.note
+        }
+        
+        saveExerciseButton.addTarget(self, action: #selector(didTapSave), for: .touchUpInside)
+        
         view.backgroundColor = .background
         view.addSubview(pageTitle)
         view.addSubview(exerciseInfoButton)
@@ -99,6 +118,20 @@ class EditExerciseViewController: UIViewController {
             exerciseComment.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
     }
+    
+    @objc private func didTapSave() {
+        guard let exerciseComment = exerciseComment.viewWithTag(1) as? UITextField,
+              let text = exerciseComment.text else {
+            print("Не удалось сохранить комментарий")
+            return
+        }
+        
+        guard let exercise = exercise else { return }
+        
+        CoreDataManager.shared.updateExerciseById(id: exercise.id, newSets: sets, newReps: reps, newWeight: weight, newNote: text)
+        delegate?.didUpdateExercise(exercise)
+        dismiss(animated: true)
+    }
 
 }
 
@@ -123,6 +156,15 @@ extension EditExerciseViewController: UIPickerViewDelegate, UIPickerViewDataSour
         case 1: return "\(row)"
         case 2: return "\(row) кг"
         default: return ""
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch component {
+        case 0: sets = Int64(row)
+        case 1: reps = Int64(row)
+        case 2: weight = Int64(row)
+        default: return
         }
     }
     

@@ -96,7 +96,7 @@ extension GuideViewController: UITableViewDelegate, UITableViewDataSource {
         
         let guideArcticleCount = UILabel()
         guideArcticleCount.translatesAutoresizingMaskIntoConstraints = false
-        guideArcticleCount.text = "Количество: 36"
+        guideArcticleCount.text = "Количество: 30"
         guideArcticleCount.font = UIFont.systemFont(ofSize: 14, weight: .light)
         guideArcticleCount.textColor = .accent
         cell.contentView.addSubview(guideArcticleCount)

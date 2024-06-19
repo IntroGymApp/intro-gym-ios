@@ -9,6 +9,8 @@ import UIKit
 
 class WorkoutViewController: UIViewController {
     
+    var workouts: [WorkoutEntity] = []
+    
     private var createdWorkoutsTableView: UITableView!
     
     private lazy var createWorkoutLabel: UILabel = {
@@ -35,6 +37,18 @@ class WorkoutViewController: UIViewController {
         configureView()
         createTable()
         setupLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getAllWorkouts()
+    }
+    
+    private func getAllWorkouts() {
+        if let fetchedWorkouts = CoreDataManager.shared.getAllWorkouts() {
+            workouts = fetchedWorkouts.filter { $0.date == nil }
+            createdWorkoutsTableView.reloadData()
+        }
     }
     
     private func configureView() {
@@ -92,7 +106,7 @@ extension WorkoutViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return workouts.count
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -101,9 +115,14 @@ extension WorkoutViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = createdWorkoutsTableView.dequeueReusableCell(withIdentifier: "WorkoutCell", for: indexPath) as! CustomWorkoutCell
-        cell.configure(with: "Тренировка \(indexPath.section + 1)",
+        
+        let workout = workouts[indexPath.section]
+        let exercises = workout.exercise?.allObjects as? [ExerciseEntity]
+        let exercisesCount = exercises?.count
+        
+        cell.configure(with: workout.name,
                        descr: nil,
-                       examplesCount: "Упражнений: 2",
+                       examplesCount: exercisesCount,
                        backgroundImage: nil)
         
         let arrowImage = UIImageView()
@@ -135,8 +154,21 @@ extension WorkoutViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let editWorkoutVC = EditWorkoutViewController()
         editWorkoutVC.hidesBottomBarWhenPushed = true
+        editWorkoutVC.workout = workouts[indexPath.section]
         navigationController?.pushViewController(editWorkoutVC, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { action, view, complectionHandler in
+            let workoutToDelete = self.workouts[indexPath.section]
+            CoreDataManager.shared.deleteWorkout(workout: workoutToDelete)
+            self.getAllWorkouts()
+            complectionHandler(true)
+        }
+        deleteAction.backgroundColor = .red
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
+    }
     
 }

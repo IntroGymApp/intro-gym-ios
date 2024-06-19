@@ -28,7 +28,7 @@ class StatsViewController: UIViewController {
     private lazy var motivationTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Ну как там с деньгами?"
+        label.text = "Федор Емельяненко"
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         label.textColor = .accent
         label.numberOfLines = 0
@@ -39,7 +39,7 @@ class StatsViewController: UIViewController {
     private lazy var motivationText: UILabel = {
         let text = UILabel()
         text.translatesAutoresizingMaskIntoConstraints = false
-        text.text = "Ты будешь пожизненно хилым, если не купишь PRO версию нашего приложения всего за 19990 в год"
+        text.text = "\"Победит не тот, кто сильнее, а тот, кто готов идти до конца\""
         text.font = UIFont.systemFont(ofSize: 14, weight: .light)
         text.textColor = .main
         text.numberOfLines = 0

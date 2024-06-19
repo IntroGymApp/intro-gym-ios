@@ -21,6 +21,7 @@ class Factory {
         label.text = text
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         label.textColor = .main
+        label.numberOfLines = 0
         return label
     }
     
@@ -80,9 +81,10 @@ class Factory {
     }
     
     //MARK: - Constructors of the views
-    static func createHeaderWithField(header: String, fieldPlaceholder: String) -> UIView {
+    static func createHeaderWithField(header: String, fieldPlaceholder: String, fieldTag: Int) -> UIView {
         let label = createHeader(text: header)
         let textField = createField(placeholder: fieldPlaceholder)
+        textField.tag = fieldTag
         
         let superView = UIView()
         superView.translatesAutoresizingMaskIntoConstraints = false
@@ -132,6 +134,7 @@ class Factory {
         NSLayoutConstraint.activate([
             header.topAnchor.constraint(equalTo: containerView.topAnchor),
             header.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            header.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             
             label.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 5),
             label.leadingAnchor.constraint(equalTo: header.leadingAnchor),
@@ -149,7 +152,7 @@ class Factory {
         let header = createHeader(text: "Ваш план")
         containerView.addSubview(header)
         
-        let approaches = createPlanItemCard(iconName: "approaches", labelText: "Подходы", labelValue: "\(approachesValueDone) / \(approachesValue)")
+        let approaches = createPlanItemCard(iconName: "approaches", labelText: "Подходы", labelValue: "\(approachesValue)")
         containerView.addSubview(approaches)
         
         let repetition = createPlanItemCard(iconName: "repetitions", labelText: "Повторы", labelValue: String(repetitionsValue))
@@ -178,7 +181,7 @@ class Factory {
         return containerView
     }
     
-    static func createExerciseNoteFileds() -> UIView {
+    static func createExerciseNoteFileds(repsFieldTag: Int, weightFieldTag: Int, buttonTag: Int) -> UIView {
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -202,9 +205,11 @@ class Factory {
         
         let repeatsTextView = createExerciseDataTextField(placeholder: "Повторений")
         stack.addArrangedSubview(repeatsTextView)
+        repeatsTextView.tag = repsFieldTag
         
         let weightTextView = createExerciseDataTextField(placeholder: "Килограмм")
         stack.addArrangedSubview(weightTextView)
+        weightTextView.tag = weightFieldTag
         
         let addButton = UIButton()
         addButton.translatesAutoresizingMaskIntoConstraints = false
@@ -213,6 +218,7 @@ class Factory {
         addButton.tintColor = .background
         addButton.layer.cornerRadius = 8
         containerView.addSubview(addButton)
+        addButton.tag = buttonTag
         
         NSLayoutConstraint.activate([
             separatorTop.topAnchor.constraint(equalTo: containerView.topAnchor),

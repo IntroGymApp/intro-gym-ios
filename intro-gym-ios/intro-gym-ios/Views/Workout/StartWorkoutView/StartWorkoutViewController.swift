@@ -8,9 +8,13 @@
 import UIKit
 
 class StartWorkoutViewController: UIViewController {
+    
+    var workout: WorkoutEntity!
+    var exercises: [ExerciseEntity] = []
+    var exerciseInfo: ExerciseInfoEntity!
+    var selectExercise = ExerciseEntity()
 
     private var excersicesTableView: UITableView!
-    private var workoutDescription = Factory.createHeaderWithText(header: "Ваше описание", text: "Какое-то писание, которое пользователь сам написал. Какое-то писание, которое пользователь сам написал. Какое-то писание, которое пользователь сам написал. Какое-то писание, которое пользователь сам написал. Какое-то писание, которое пользователь сам написал. Какое-то писание, которое пользователь сам написал. ")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,11 +22,19 @@ class StartWorkoutViewController: UIViewController {
         configureView()
         createTable()
         setupLayout()
+        getAllExersices()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNavigationBarAppearance()
+    }
+    
+    private func getAllExersices() {
+        if let workout = workout, let exercisesSet = workout.exercise as? Set<ExerciseEntity> {
+            exercises = Array(exercisesSet)
+            excersicesTableView.reloadData()
+        }
     }
     
     private func setupNavigationBarAppearance() {
@@ -42,7 +54,7 @@ class StartWorkoutViewController: UIViewController {
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
         
-        navigationItem.title = "Тренировка N"
+        navigationItem.title = "Тренировка"
         navigationController?.navigationBar.tintColor = .main
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "edit"), style: .done, target: self, action: #selector(didTapEditWorkout))
         
@@ -69,6 +81,8 @@ class StartWorkoutViewController: UIViewController {
     }
     
     private func setupLayout() {
+        let workoutDescription = Factory.createHeaderWithText(header: workout.name, text: workout.descr ?? "nil")
+        
         view.backgroundColor = .background
         view.addSubview(workoutDescription)
         view.addSubview(excersicesTableView)
@@ -91,13 +105,24 @@ class StartWorkoutViewController: UIViewController {
 
 }
 
+extension StartWorkoutViewController: StartExerciseViewControllerDelegate {
+    func getExerciseImg() -> String {
+        return exerciseInfo.img ?? ""
+    }
+    
+    func getExerciseId() -> Int64 {
+        return selectExercise.id
+    }
+    
+}
+
 extension StartWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return exercises.count
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -106,11 +131,16 @@ extension StartWorkoutViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExcersiceCell", for: indexPath) as! CustomExerciseCell
-        cell.configure(with: "Становая тяга", 
-                       approaches: 3,
-                       repetitions: 6,
-                       weight: 80,
-                       image: UIImage(named: "ExerciseExample"))
+        
+        let exercise = exercises[indexPath.section]
+        let exerciseInfoId = exercises[indexPath.section].exerciseInfoId
+        exerciseInfo = CoreDataManager.shared.getExerciseInfoById(id: exerciseInfoId)
+        
+        cell.configure(with: exercise.name,
+                       approaches: Int(exercise.sets),
+                       repetitions: Int(exercise.reps),
+                       weight: Int(exercise.weight),
+                       image: UIImage(named: exerciseInfo?.img ?? ""))
         
         return cell
     }
@@ -121,6 +151,8 @@ extension StartWorkoutViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let startExerciseVC = StartExerciseViewController()
+        startExerciseVC.delegate = self
+        selectExercise = exercises[indexPath.section]
         navigationController?.pushViewController(startExerciseVC, animated: true)
     }
     

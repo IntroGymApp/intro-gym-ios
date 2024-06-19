@@ -9,15 +9,13 @@ import UIKit
 
 class MuscleGroupListViewController: UIViewController {
     
+    weak var delegate: ExerciseDescriptionViewControllerDelegate?
+    var exercisesInfo: [String: Int] = [:]
+    var shouldShowAddButton: Bool = false
+    
     private var listMuscleTableView: UITableView!
-    private let imagesForCellName = ["breast",
-                                     "legs",
-                                     "shoulders",
-                                     "forearm",
-                                     "press",
-                                     "arms-biceps",
-                                     "arms-triceps",
-                                     "back",]
+    private let imagesForCellName = ["breast", "legs", "shoulders", "forearm", "press", "arms-biceps", "arms-triceps", "back"]
+    private let groupsName = ["Грудь", "Ноги", "Плечи", "Предплечье", "Пресс", "Бицепсы", "Трицепсы", "Спина"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +23,14 @@ class MuscleGroupListViewController: UIViewController {
         configureView()
         createTable()
         setupLayout()
+        getAllExercisesInfo()
+    }
+    
+    private func getAllExercisesInfo() {
+        for group in groupsName {
+            exercisesInfo[group] = CoreDataManager.shared.getAllExercisesInfoByGroup(group: group).count
+        }
+        listMuscleTableView.reloadData()
     }
     
     private func configureView() {
@@ -77,9 +83,13 @@ extension MuscleGroupListViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExcersiceCell", for: indexPath) as! CustomWorkoutCell
-        cell.configure(with: "Грудь", 
+        
+        let groupName = groupsName[indexPath.section]
+        let exemplesCount = exercisesInfo[groupName] ?? 0
+        
+        cell.configure(with: groupName,
                        descr: nil,
-                       examplesCount: "Упражнений: 4",
+                       examplesCount: exemplesCount,
                        backgroundImage: nil)
         
         let image: UIImage = UIImage(named: imagesForCellName[indexPath.section]) ?? UIImage()
@@ -122,6 +132,10 @@ extension MuscleGroupListViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let exerciseGroupListVC = ExerciseListViewController()
+        exerciseGroupListVC.shouldShowAddButton = shouldShowAddButton
+        exerciseGroupListVC.delegate = delegate
+        exerciseGroupListVC.exericiseGroup = groupsName[indexPath.section]
+        
         navigationController?.pushViewController(exerciseGroupListVC, animated: true)
     }
     
