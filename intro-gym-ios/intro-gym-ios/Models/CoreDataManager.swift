@@ -100,7 +100,11 @@ extension CoreDataManager {
         appDelegate.saveContext()
     }
     
-    func getLastCreatedWorkout() {}
+    func getLastCreatedWorkout() -> Int {
+        let lastId = getAllWorkouts()?.last?.id ?? -1
+        
+        return Int(lastId)
+    }
     
     func updateWorkoutById(id: Int64, newName: String?, newDescr: String?, newExercises: [ExerciseEntity]?) {
         if let workout = getWorkoutById(id: id) {

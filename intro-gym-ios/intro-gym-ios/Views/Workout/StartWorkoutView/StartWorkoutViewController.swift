@@ -56,7 +56,7 @@ class StartWorkoutViewController: UIViewController {
         
         navigationItem.title = "Тренировка"
         navigationController?.navigationBar.tintColor = .main
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "edit"), style: .done, target: self, action: #selector(didTapEditWorkout))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "edit"), style: .done, target: self, action: #selector(didTapEditWorkout))
         
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()

@@ -57,6 +57,7 @@ class CustomExerciseCell: UITableViewCell {
             
             exerciseLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             exerciseLabel.leadingAnchor.constraint(equalTo: exerciseImage.trailingAnchor, constant: 18),
+            exerciseLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             
             exerciseInfoLabel.topAnchor.constraint(equalTo: exerciseLabel.bottomAnchor, constant: 3),
             exerciseInfoLabel.leadingAnchor.constraint(equalTo: exerciseLabel.leadingAnchor)

@@ -15,6 +15,7 @@ protocol StartExerciseViewControllerDelegate: AnyObject {
 class StartExerciseViewController: UIViewController {
     
     var exercise = ExerciseEntity()
+    var exerciseInfo: ExerciseInfoEntity?
     var exerciseInfoImg = ""
     var exerciseHistory: [ExerciseHistoryEntity] = []
     weak var delegate: StartExerciseViewControllerDelegate?
@@ -90,7 +91,11 @@ class StartExerciseViewController: UIViewController {
     
     private func setupLayout() {
         exerciseNoteFields = Factory.createExerciseNoteFileds(repsFieldTag: 1, weightFieldTag: 2, buttonTag: 3)
-        exerciseInfoImg = delegate?.getExerciseImg() ?? ""
+        
+        let exerciseInfoId = exercise.exerciseInfoId
+        exerciseInfo = CoreDataManager.shared.getExerciseInfoById(id: exerciseInfoId)
+        
+        exerciseInfoImg = exerciseInfo?.img ?? ""
         exerciseImage.image = UIImage(named: "large-" + exerciseInfoImg)
         
         let exerciseDescription = Factory.createHeaderWithText(header: "Ваш комментарий", text: exercise.note ?? "nil")
@@ -101,7 +106,7 @@ class StartExerciseViewController: UIViewController {
         
         view.backgroundColor = .background
         navigationItem.title = exercise.name
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "info"), style: .done, target: self, action: #selector(showInfo))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "info"), style: .done, target: self, action: #selector(showInfo))
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(exerciseImage)

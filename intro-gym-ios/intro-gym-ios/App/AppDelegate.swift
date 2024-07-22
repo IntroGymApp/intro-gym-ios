@@ -12,7 +12,32 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        copyDatabaseIfNeeded()
         return true
+    }
+    
+    private func copyDatabaseIfNeeded() {
+        let fileManager = FileManager.default
+        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let destinationURL = documentsURL.appendingPathComponent("Model.sqlite")
+        
+        if !fileManager.fileExists(atPath: destinationURL.path) {
+            if let sourceURL = Bundle.main.url(forResource: "Model", withExtension: "sqlite") {
+                do {
+                    try fileManager.copyItem(at: sourceURL, to: destinationURL)
+                    print("Database copied to \(destinationURL.path)")
+                } catch {
+                    print("Error copying database: \(error.localizedDescription)")
+                    // Handle the error (show alert to user, retry, etc.)
+                }
+            } else {
+                print("Source database file not found.")
+                // Handle the error (show alert to user, retry, etc.)
+            }
+        } else {
+            print("Database file already exists at \(destinationURL.path)")
+        }
     }
 
     // MARK: UISceneSession Lifecycle
@@ -27,11 +52,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Model")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let storeURL = documentsURL.appendingPathComponent("Model.sqlite")
+
+            let description = NSPersistentStoreDescription(url: storeURL)
+            container.persistentStoreDescriptions = [description]
+            
+            container.loadPersistentStores { (storeDescription, error) in
+                if let error = error as NSError? {
+                    fatalError("Unresolved error \(error), \(error.userInfo)")
+                }
             }
-        })
         return container
     }()
 

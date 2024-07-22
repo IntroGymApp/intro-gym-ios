@@ -47,6 +47,7 @@
 		85D1141C2C191C06009E7938 /* ExerciseHistoryEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D114102C191C06009E7938 /* ExerciseHistoryEntity+CoreDataClass.swift */; };
 		85D1141D2C191C06009E7938 /* ExerciseHistoryEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D114112C191C06009E7938 /* ExerciseHistoryEntity+CoreDataProperties.swift */; };
 		85D114252C19B35A009E7938 /* IdentifierManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D114242C19B35A009E7938 /* IdentifierManager.swift */; };
+		85E55E632C246EEB0017786B /* Model.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 85E55E622C246EEB0017786B /* Model.sqlite */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +93,7 @@
 		85D114102C191C06009E7938 /* ExerciseHistoryEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExerciseHistoryEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		85D114112C191C06009E7938 /* ExerciseHistoryEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExerciseHistoryEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		85D114242C19B35A009E7938 /* IdentifierManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifierManager.swift; sourceTree = "<group>"; };
+		85E55E622C246EEB0017786B /* Model.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Model.sqlite; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +265,7 @@
 				85D1141F2C191C46009E7938 /* ExerciseInfo */,
 				85D1141E2C191C3B009E7938 /* Exercise */,
 				85A5160B2C0DA929005418AF /* Model.xcdatamodeld */,
+				85E55E622C246EEB0017786B /* Model.sqlite */,
 				85A516092C0D9E18005418AF /* CoreDataManager.swift */,
 				85D114242C19B35A009E7938 /* IdentifierManager.swift */,
 			);
@@ -443,6 +446,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85E55E632C246EEB0017786B /* Model.sqlite in Resources */,
 				85B0E1792BEB1ED5004D0BE6 /* LaunchScreen.storyboard in Resources */,
 				85B0E1762BEB1ED5004D0BE6 /* Assets.xcassets in Resources */,
 			);

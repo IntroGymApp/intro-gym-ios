@@ -1,10 +1,3 @@
-//
-//  CreateWorkoutViewController.swift
-//  intro-gym-ios
-//
-//  Created by Дывак Максим on 22.05.2024.
-//
-
 import UIKit
 
 class EditWorkoutViewController: UIViewController {
@@ -38,6 +31,10 @@ class EditWorkoutViewController: UIViewController {
         return stack
     }()
 
+    private var isWorkoutSaved = false
+    private var isNavigatingToChildController = false
+    private var isNewWorkout = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,11 +43,35 @@ class EditWorkoutViewController: UIViewController {
         setupLayout()
         getExerciseInfo()
         hideKeyboardWhenTappedAround()
+        
+        if workout == nil {
+            createNewWorkout()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getAllExercises()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isNewWorkout && !isWorkoutSaved && !isNavigatingToChildController, let workout = workout {
+            print("Удалена тренировка с ID: \(workout.id)")
+            CoreDataManager.shared.deleteWorkout(workout: workout)
+        }
+    }
+
+    private func createNewWorkout() {
+        CoreDataManager.shared.createWorkout(name: "", descr: "", exercises: [])
+        let lastWorkoutId = CoreDataManager.shared.getLastCreatedWorkout()
+        workout = CoreDataManager.shared.getWorkoutById(id: Int64(lastWorkoutId))
+        isNewWorkout = true
+        if workout != nil {
+            print("Создана новая тренировка с ID: \(lastWorkoutId)")
+        } else {
+            print("Не удалось создать новую тренировку")
+        }
     }
     
     private func getExerciseInfo() {
@@ -161,6 +182,7 @@ class EditWorkoutViewController: UIViewController {
             CoreDataManager.shared.createWorkout(name: name, descr: descr, exercises: exercises)
             navigationController?.popViewController(animated: true)
             print("Тренировка создана")
+            isWorkoutSaved = true
             return
         }
         
@@ -168,9 +190,11 @@ class EditWorkoutViewController: UIViewController {
         print("Тренировка обновлена")
         
         navigationController?.popViewController(animated: true)
+        isWorkoutSaved = true
     }
     
     @objc private func didTapAddExercise() {
+        isNavigatingToChildController = true
         let muscleGroupListVC = MuscleGroupListViewController()
         muscleGroupListVC.hidesBottomBarWhenPushed = true
         muscleGroupListVC.shouldShowAddButton = true
@@ -178,6 +202,10 @@ class EditWorkoutViewController: UIViewController {
         navigationController?.pushViewController(muscleGroupListVC, animated: true)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        isNavigatingToChildController = false
+    }
 }
 
 extension EditWorkoutViewController: ExerciseDescriptionViewControllerDelegate {
@@ -185,7 +213,6 @@ extension EditWorkoutViewController: ExerciseDescriptionViewControllerDelegate {
         print("EditWorkout delegate method. Workout id: ", workout?.id ?? 0)
         return workout?.id ?? 0
     }
-    
 }
 
 extension EditWorkoutViewController: EditExerciseViewControllerDelegate {
@@ -200,7 +227,6 @@ extension EditWorkoutViewController: EditExerciseViewControllerDelegate {
             excersicesTableView.reloadData()
         }
     }
-        
 }
 
 extension EditWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
@@ -241,6 +267,7 @@ extension EditWorkoutViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        isNavigatingToChildController = true
         let editExerciseVC = EditExerciseViewController()
         editExerciseVC.modalPresentationStyle = .pageSheet
         editExerciseVC.delegate = self
@@ -260,5 +287,4 @@ extension EditWorkoutViewController: UITableViewDelegate, UITableViewDataSource 
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
         return configuration
     }
-    
 }

@@ -30,7 +30,6 @@ class EditExerciseViewController: UIViewController {
     private lazy var pageTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Становая тяга"
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         label.textColor = .main
         return label
@@ -59,6 +58,7 @@ class EditExerciseViewController: UIViewController {
         exercise = delegate?.getExercise()
         createPickerView()
         setupLayout()
+        hideKeyboardWhenTappedAround()
     }
     
     private func createPickerView() {
@@ -73,17 +73,25 @@ class EditExerciseViewController: UIViewController {
         pickerView.selectRow(Int(exercise?.weight ?? 0), inComponent: 2, animated: true)
     }
     
+    private func hideKeyboardWhenTappedAround() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+    
     private func setupLayout() {
         if exercise?.note != "nil" {
             let exerciseComment = exerciseComment.viewWithTag(1) as? UITextField
             exerciseComment?.text = exercise?.note
         }
         
+        pageTitle.text = exercise?.name
+        
         saveExerciseButton.addTarget(self, action: #selector(didTapSave), for: .touchUpInside)
         
         view.backgroundColor = .background
         view.addSubview(pageTitle)
-        view.addSubview(exerciseInfoButton)
+//        view.addSubview(exerciseInfoButton)
         view.addSubview(stack)
         view.addSubview(pickerView)
         view.addSubview(exerciseComment)
@@ -97,10 +105,10 @@ class EditExerciseViewController: UIViewController {
             pageTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             pageTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            exerciseInfoButton.centerYAnchor.constraint(equalTo: pageTitle.centerYAnchor),
-            exerciseInfoButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            exerciseInfoButton.widthAnchor.constraint(equalToConstant: 32),
-            exerciseInfoButton.heightAnchor.constraint(equalToConstant: 32),
+//            exerciseInfoButton.centerYAnchor.constraint(equalTo: pageTitle.centerYAnchor),
+//            exerciseInfoButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+//            exerciseInfoButton.widthAnchor.constraint(equalToConstant: 32),
+//            exerciseInfoButton.heightAnchor.constraint(equalToConstant: 32),
             
             stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 120),
             stack.leadingAnchor.constraint(equalTo: pickerView.leadingAnchor, constant: 30),
@@ -117,6 +125,10 @@ class EditExerciseViewController: UIViewController {
             exerciseComment.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             exerciseComment.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     @objc private func didTapSave() {
