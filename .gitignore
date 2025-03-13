@@ -1,0 +1,44 @@
+# Xcode
+.DS_Store
+xcuserdata/
+DerivedData/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+build/
+
+# Swift Package Manager
+.build/
+
+# CoreData
+*.xccheckout
+*.moved-aside
+*.xccheckout
+
+# SwiftPM cache
+.packages
+/.build
+
+# CocoaPods (на случай, если подключишь)
+Pods/
+
+# Логи
+*.log
+
+# Тестовые отчёты и покрытие
+*.gcno
+*.gcda
+*.gcov
+
+# Скриншоты и временные файлы
+*.png
+*.jpg
+
+# Пользовательские данные и чувствительные файлы
+*.plist
+.env
+*.pem
+*.p12
+
+# IDE
+.idea/
+.vscode/
