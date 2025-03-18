@@ -14,7 +14,7 @@ final class HomeCoordinator: Coordinator {
         let homeVC = HomeViewController()
         navigationController.viewControllers = [homeVC]
         
-        navigationController.tabBarItem = UITabBarItem(title: "Главная", image: nil, tag: 0)
+        navigationController.tabBarItem = UITabBarItem(title: "Главная", image: UIImage(named: "home-icon"), tag: 0)
         
         return navigationController
     }

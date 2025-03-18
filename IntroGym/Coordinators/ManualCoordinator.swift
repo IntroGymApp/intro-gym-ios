@@ -14,7 +14,7 @@ final class ManualCoordinator: Coordinator {
         let manualVC = ManualViewController()
         navigationController.viewControllers = [manualVC]
         
-        navigationController.tabBarItem = UITabBarItem(title: "Справочник", image: nil, tag: 2)
+        navigationController.tabBarItem = UITabBarItem(title: "Справочник", image: UIImage(named: "list-icon"), tag: 2)
         
         return navigationController
     }

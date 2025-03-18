@@ -14,7 +14,7 @@ final class StatisticsCoordinator: Coordinator {
         let statisticsVC = StatisticsViewController()
         navigationController.viewControllers = [statisticsVC]
         
-        navigationController.tabBarItem = UITabBarItem(title: "Профиль", image: nil, tag: 4)
+        navigationController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(named: "chart-icon"), tag: 4)
         
         return navigationController
     }

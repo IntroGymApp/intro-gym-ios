@@ -14,7 +14,7 @@ final class WorkoutsCoordinator: Coordinator {
         let workoutsVC = WorkoutsViewController()
         navigationController.viewControllers = [workoutsVC]
         
-        navigationController.tabBarItem = UITabBarItem(title: "Тренировки", image: nil, tag: 1)
+        navigationController.tabBarItem = UITabBarItem(title: "Тренировки", image: UIImage(named: "zap-icon"), tag: 1)
         
         return navigationController
     }

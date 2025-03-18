@@ -14,7 +14,7 @@ final class ProfileCoordinator: Coordinator {
         let profileVC = ProfileViewController()
         navigationController.viewControllers = [profileVC]
         
-        navigationController.tabBarItem = UITabBarItem(title: "Профиль", image: nil, tag: 4)
+        navigationController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(named: "profile-icon"), tag: 4)
         
         return navigationController
     }
