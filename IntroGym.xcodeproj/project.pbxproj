@@ -33,7 +33,7 @@
 		855671512D816F650006EF18 /* Exceptions for "IntroGym" folder in "IntroGym" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				SupportingFiles/Info.plist,
 			);
 			target = 855671252D816F620006EF18 /* IntroGym */;
 		};
@@ -291,7 +291,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3WQL775R6J;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = IntroGym/Info.plist;
+				INFOPLIST_FILE = IntroGym/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = IntroGym;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -326,7 +326,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3WQL775R6J;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = IntroGym/Info.plist;
+				INFOPLIST_FILE = IntroGym/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = IntroGym;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
