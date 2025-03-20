@@ -29,6 +29,7 @@ final class AppCoordinator {
             statisticsCoordinator.start(),
             profileCoordinator.start()
         ]
+        tabBarController.tabBar.tintColor = AppColors.accent
         
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
