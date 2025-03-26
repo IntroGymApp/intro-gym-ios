@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8569A8472D940280006F955F /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 8569A8462D940280006F955F /* CombineMoya */; };
+		8569A8492D940280006F955F /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 8569A8482D940280006F955F /* Moya */; };
+		8569A84D2D940355006F955F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8569A84C2D940355006F955F /* SnapKit */; };
+		8569A8502D94041D006F955F /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 8569A84F2D94041D006F955F /* Lottie */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		855671402D816F650006EF18 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +72,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8569A84D2D940355006F955F /* SnapKit in Frameworks */,
+				8569A8492D940280006F955F /* Moya in Frameworks */,
+				8569A8472D940280006F955F /* CombineMoya in Frameworks */,
+				8569A8502D94041D006F955F /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +102,7 @@
 				855671282D816F620006EF18 /* IntroGym */,
 				855671422D816F650006EF18 /* IntroGymTests */,
 				8556714C2D816F650006EF18 /* IntroGymUITests */,
+				8569A84B2D940355006F955F /* Frameworks */,
 				855671272D816F620006EF18 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -103,6 +115,13 @@
 				855671492D816F650006EF18 /* IntroGymUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8569A84B2D940355006F955F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +144,10 @@
 			);
 			name = IntroGym;
 			packageProductDependencies = (
+				8569A8462D940280006F955F /* CombineMoya */,
+				8569A8482D940280006F955F /* Moya */,
+				8569A84C2D940355006F955F /* SnapKit */,
+				8569A84F2D94041D006F955F /* Lottie */,
 			);
 			productName = IntroGym;
 			productReference = 855671262D816F620006EF18 /* IntroGym.app */;
@@ -208,6 +231,11 @@
 			);
 			mainGroup = 8556711D2D816F620006EF18;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8569A8452D940280006F955F /* XCRemoteSwiftPackageReference "Moya" */,
+				8569A84A2D9402CC006F955F /* XCRemoteSwiftPackageReference "SnapKit" */,
+				8569A84E2D94041C006F955F /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 855671272D816F620006EF18 /* Products */;
 			projectDirPath = "";
@@ -583,6 +611,56 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8569A8452D940280006F955F /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
+		8569A84A2D9402CC006F955F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		8569A84E2D94041C006F955F /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8569A8462D940280006F955F /* CombineMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8569A8452D940280006F955F /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = CombineMoya;
+		};
+		8569A8482D940280006F955F /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8569A8452D940280006F955F /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		8569A84C2D940355006F955F /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8569A84A2D9402CC006F955F /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		8569A84F2D94041D006F955F /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8569A84E2D94041C006F955F /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8556711E2D816F620006EF18 /* Project object */;
 }
